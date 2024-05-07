@@ -16,8 +16,8 @@ export const ContainerCardUser = styled.div`
 export const ButtonCloseNavbar = styled.button`
   width: 44px;
   height: 44px;
-  margin-top: 44px;
-  margin-left: 155px;
+  top: 44px;
+  left: 280px;
   padding: 10px;
   gap: 7px;
   border-radius: 8px;
@@ -45,7 +45,7 @@ export const Logo = styled.img`
   width: 110px;
   height: 55px;
   top: 39px;
-  left: 23px;
+  left: 10px;
   margin-top: 30px;
   margin-left: 20px;
 `;
