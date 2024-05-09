@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 export const Container = styled.div`
@@ -70,6 +71,10 @@ export const DivMenu = styled.div`
   opacity: 0px;
 `;
 
+export const RouteLink = styled(Link)`
+  text-decoration: none;
+`;
+
 export const ButtonMenu = styled.button`
   width: 312px;
   height: 48px;
@@ -85,6 +90,7 @@ export const ButtonMenu = styled.button`
   text-align: center;
   border: none;
   cursor: pointer;
+
   &:hover {
     background-color: #4b574e;
     transform: scale(1.05);
@@ -121,8 +127,8 @@ export const IconsMenu = styled.img`
 export const ButtonExit = styled.button`
   width: 312px;
   height: 48px;
-  top: 900px;
-  left: 23px;
+  margin-top: 828px;
+  margin-left: 23px;
   padding: 0px 15px;
   gap: 10px;
   border-radius: 8px;
@@ -131,11 +137,9 @@ export const ButtonExit = styled.button`
   border: none;
   cursor: pointer;
   display: flex;
+  position: fixed;
   flex-direction: row;
-  position: fixed;
   bottom: 30px;
-  left: 20px;
-  position: fixed;
 `;
 
 export const TextButtonExit = styled.p`
