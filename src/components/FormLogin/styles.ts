@@ -59,16 +59,15 @@ export const ContainerForm = styled.div`
 
 export const ContainerInputLabelGroup = styled.div`
   width: 100%;
-  max-width: 436px;
   height: auto;
   display: flex;
   gap: 20px;
   flex-direction: column;
-`;
+  `;
 
 export const InputLabelGroup = styled.div`
+  position: relative;
   width: 100%;
-  max-width: 436px;
   height: auto;
   display: flex;
   flex-direction: column;
@@ -79,14 +78,13 @@ export const Label = styled.label`
   color: #344054;
   align-self: flex-start;
   width: 100%;
-  max-width: 314px;
   height: 21px;
   text-align: start;
 `;
 
 export const Input = styled.input`
   background: white;
-  width: calc(100% - 34px);
+  width: 100%;
   height: 48px;
   padding: 12px 44px 12px 16px;
   border-radius: 8px;
@@ -101,11 +99,11 @@ export const InputContainer = styled.div`
 `;
 
 export const IconViewPassword = styled.img`
-  width: 30px;
-  height: 30px;
+  width: 24px;
+  height: 24px;
   position: absolute;
-  top: 69%;
-  right: 85px;
+  bottom: 12px;
+  right: 16px;
   cursor: pointer;
   &:hover {
     transform: scale(1.05);
@@ -117,6 +115,9 @@ export const IconViewPassword = styled.img`
 
 export const ButtonLogin = styled.button`
   background: #86a693;
+  font-family: "Poppins";
+  font-size: 0.875rem;
+  font-weight: 600;
   color: white;
   width: 100%;
   max-width: 100%;
@@ -153,4 +154,6 @@ export const LinkAcess = styled.a`
 export const P = styled.p`
   margin-top: 20px;
   color: #344054;
+  font-size: 0.75rem;
+  line-height: 18px;
 `;
