@@ -1,7 +1,7 @@
-import { Actions, ButtonIcon, Container, IconDeleteUser, IconEditUser, StatusActive, StatusInactive, Table } from "./styles";
+import { Actions, ButtonIcon, Container, Icon, StatusActive, StatusInactive, Table } from "./styles";
 
 type AccessLevel = 'admin' | 'operator' | 'supervisor';
-type Status = 'active' | 'inactive' | 'suspended';
+type Status = 'active' | 'inactive';
 
 interface User {
   id: string;
@@ -16,7 +16,7 @@ interface User {
 const users: User[] = [
   { id: '1', name: 'Marcos Teixeira', user: 'marcos', email: 'marcos@usuario.com', accessLevel: 'operator', status: 'active', lastLogin: new Date('2023-05-01T10:20:30Z') },
   { id: '2', name: 'Administrador', user: 'Administrador', email: null, accessLevel: 'admin', status: 'active', lastLogin: new Date('2023-04-12T08:15:45Z') },
-  { id: '3', name: 'João Pereira', user: 'joao', email: 'joao@usuario.com', accessLevel: 'supervisor', status: 'suspended', lastLogin: new Date('2023-03-23T12:45:00Z') },
+  { id: '3', name: 'João Pereira', user: 'joao', email: 'joao@usuario.com', accessLevel: 'supervisor', status: 'active', lastLogin: new Date('2023-03-23T12:45:00Z') },
   { id: '4', name: 'Maria Souza', user: 'maria', email: 'maria@usuario.com', accessLevel: 'operator', status: 'active', lastLogin: new Date('2023-02-14T07:30:20Z') },
   { id: '6', name: 'Fernanda Oliveira', user: 'fernanda', email: 'fernanda@usuario.com', accessLevel: 'operator', status: 'inactive', lastLogin: new Date('2022-12-25T11:05:55Z') },
   { id: '7', name: 'Pedro Santos', user: 'pedro', email: 'pedro@usuario.com', accessLevel: 'supervisor', status: 'active', lastLogin: new Date('2022-11-14T04:20:30Z') },
@@ -59,16 +59,23 @@ export const TableUsers = () => {
               <td>
                 <Actions>
                   <ButtonIcon>
-                    <IconEditUser
-                      src="/src/assets/icons/edit.svg"
+                    <Icon
+                      src="/src/assets/icons/edit-icon.svg"
                       alt="ícone de editar usuário"
                     />
                   </ButtonIcon>
                   <ButtonIcon>
-                    <IconDeleteUser
-                      src="/src/assets/icons/close.svg"
-                      alt="ícone de deletar usuário"
-                    />
+                    {user.status === 'active' ? (
+                      <Icon
+                        src="/src/assets/icons/inactive-icon.svg"
+                        alt="ícone de deletar usuário"
+                      />
+                    ) : (
+                      <Icon
+                        src="/src/assets/icons/active-icon.svg"
+                        alt="ícone de deletar usuário"
+                      />
+                    )}
                   </ButtonIcon>
                 </Actions>
               </td>

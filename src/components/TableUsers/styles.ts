@@ -78,17 +78,7 @@ export const ButtonIcon = styled.button`
   }
 `;
 
-export const IconDeleteUser = styled.img`
+export const Icon = styled.img`
   width: 21px;
   height: 21px;
-
-  svg {
-    color: red;
-  }
-`;
-
-export const IconEditUser = styled.img`
-  width: 21px;
-  height: 21px;
-  fill: #5CB85C;
 `;
