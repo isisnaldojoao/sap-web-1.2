@@ -17,6 +17,10 @@ import {
   IconCloseNavbar,
   ButtonOpenNavbar,
   RouteLink,
+  OpenNavbarContainer,
+  Logo2,
+  ContainerCloseNavbar,
+  ContainerTop,
 } from "./styles";
 
 export function Sidebar() {
@@ -30,48 +34,55 @@ export function Sidebar() {
     <>
       {navbarOpen && (
         <Container>
-          <Logo src="/src/assets/logo-avb-white.svg" />
-          <ButtonCloseNavbar onClick={toggleNavbar}>
-            <IconCloseNavbar src="/src/assets/icons/close.svg" />
-          </ButtonCloseNavbar>
+          <ContainerTop>
+            <ContainerCloseNavbar>
+              <Logo src="/src/assets/logo-avb-white.svg" />
+              <ButtonCloseNavbar onClick={toggleNavbar}>
+                <IconCloseNavbar src="/src/assets/icons/close.svg" />
+              </ButtonCloseNavbar>
+            </ContainerCloseNavbar>
 
-          <ContainerCardUser>
-            <CardUser />
-          </ContainerCardUser>
-          <UserText>USUÁRIOS</UserText>
-          <DivMenu>
-            <GroupButton>
-              <RouteLink to="/">
-                <ButtonMenu>
-                  <IconsMenu
-                    src="/src/assets/icons/edit.svg"
-                    alt="icone de editar"
-                  />
-                  <TextButton>Editar usuários</TextButton>
-                </ButtonMenu>
-              </RouteLink>
+            <ContainerCardUser>
+              <CardUser />
+            </ContainerCardUser>
 
-              <RouteLink to="/manager-permissions-levels">
-                <ButtonMenu>
-                  <IconsMenu
-                    src="/src/assets/icons/manage-access-levels.svg"
-                    alt="icone de gerenciar níveis de acesso"
-                  />
-                  <TextButton>Gerenciar níveis de acesso</TextButton>
-                </ButtonMenu>
-              </RouteLink>
+            <UserText>USUÁRIOS</UserText>
 
-              <RouteLink to="/download-apps">
-                <ButtonMenu>
-                  <IconsMenu
-                    src="/src/assets/icons/dowload-app.svg"
-                    alt="icone de baixar app"
-                  />
-                  <TextButton> Baixar Apps</TextButton>
-                </ButtonMenu>
-              </RouteLink>
-            </GroupButton>
-          </DivMenu>
+            <DivMenu>
+              <GroupButton>
+                <RouteLink to="/">
+                  <ButtonMenu>
+                    <IconsMenu
+                      src="/src/assets/icons/edit.svg"
+                      alt="icone de editar"
+                    />
+                    <TextButton>Editar usuários</TextButton>
+                  </ButtonMenu>
+                </RouteLink>
+
+                <RouteLink to="/manager-permissions-levels">
+                  <ButtonMenu>
+                    <IconsMenu
+                      src="/src/assets/icons/manage-access-levels.svg"
+                      alt="icone de gerenciar níveis de acesso"
+                    />
+                    <TextButton>Gerenciar níveis de acesso</TextButton>
+                  </ButtonMenu>
+                </RouteLink>
+
+                <RouteLink to="/download-apps">
+                  <ButtonMenu>
+                    <IconsMenu
+                      src="/src/assets/icons/dowload-app.svg"
+                      alt="icone de baixar app"
+                    />
+                    <TextButton>Baixar Apps</TextButton>
+                  </ButtonMenu>
+                </RouteLink>
+              </GroupButton>
+            </DivMenu>
+          </ContainerTop>
+
           <ButtonExit>
             <IconButtonExit
               src="/src/assets/icons/exit.svg"
@@ -84,9 +95,12 @@ export function Sidebar() {
 
       {!navbarOpen && (
         // Chama a função para alternar a visibilidade da navbar
-        <ButtonOpenNavbar onClick={toggleNavbar}>
-          <IconCloseNavbar src="/src/assets/icons/open-navbar.svg" />
-        </ButtonOpenNavbar>
+        <OpenNavbarContainer>
+          <ButtonOpenNavbar onClick={toggleNavbar}>
+            <IconCloseNavbar src="/src/assets/icons/open-navbar.svg" />
+          </ButtonOpenNavbar>
+          <Logo2 src="/src/assets/AVB-02.svg" />
+        </OpenNavbarContainer>
       )}
     </>
   );

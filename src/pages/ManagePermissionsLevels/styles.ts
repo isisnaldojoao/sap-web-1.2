@@ -1,20 +1,17 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
-  background-color: #f5f5f5;
-  height: 100vh;
-  font-family: "Poppins";
+  flex: 1;
+  padding: 182px 32px 24px;
+  
+  @media (min-width: 640px) {
+    padding: 88px 32px 24px;
+  }
 `;
 
 export const Title = styled.h1`
-  width: 437px;
-  height: 48px;
-  margin-top: 88px;
-  margin-left: 390px;
   font-weight: 600;
-  size: 32px;
+  font-size: 2rem;
   line-height: 48px;
-  color: #344054;
-  top: 0;
-  position: absolute;
+  margin-bottom: 45px;
 `;

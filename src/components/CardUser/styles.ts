@@ -2,10 +2,8 @@ import styled from "styled-components";
 
 export const Container = styled.div`
   background: #4b574e;
-  width: 312px;
+  width: 100%;
   height: 116px;
-  top: 139px;
-  left: 23px;
   border-radius: 20px;
   display: flex;
   font-family: "Poppins";

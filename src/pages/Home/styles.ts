@@ -1,40 +1,33 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
-  background-color: #f5f5f5;
-  font-family: "Poppins";
-  color: #344054;
-  height: 100vh;
+  flex: 1;
+  padding: 182px 32px 24px;
+  
+  @media (min-width: 640px) {
+    padding: 88px 32px 24px;
+  }
 `;
 
 export const TitleMain = styled.h1`
-  width: 260px;
-  height: 48px;
   font-weight: 600;
-  margin-top: 88px;
-  left: 390px;
-  position: absolute;
-  top: 0;
-  color: #344054;
-  font-family: "Poppins";
+  font-size: 2rem;
+  line-height: 48px;
+  margin-bottom: 45px;
 `;
 
 export const SubTitle = styled.h3`
-  width: 141px;
-  height: 30px;
   font-weight: 600;
-  margin-top: 181px;
-  left: 390px;
-  position: absolute;
-  top: 0;
-  color: #344054;
-  font-family: "Poppins";
+  font-size: 1.25rem;
+  line-height: 30px;
+  margin-bottom: 28px;
 `;
 
 export const ContainerCard = styled.div`
-  margin-top: 239px;
-  margin-left: 390px;
-  position: absolute;
-  border-radius: 15px;
-  top: 0;
+  display: grid;
+  gap: 32px;
+
+  @media (min-width: 1024px) {
+    grid-template-columns: repeat(2, minmax(0, min-content));
+  }
 `;

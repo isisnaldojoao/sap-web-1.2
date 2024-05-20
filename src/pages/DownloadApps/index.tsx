@@ -1,19 +1,17 @@
 import { CardApps } from "../../components/CardApps";
-import { Sidebar } from "../../components/Sidebar";
-import { Container, ContainerCard, Title } from "./styles";
+import { Container, ContainerCards, Title } from "./styles";
 
 export const DownloadApps = () => {
   return (
     <Container>
       <Title>Baixar Apps</Title>
-      <ContainerCard>
+      <ContainerCards>
         <CardApps
           icon="src/assets/icons/icon-coletor.svg"
           textMain="Aplicação Coletor Offline"
           textSecondary="BAIXAR"
         />
-      </ContainerCard>
-      <Sidebar />
+      </ContainerCards>
     </Container>
   );
 };
