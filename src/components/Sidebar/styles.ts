@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import styled from "styled-components";
 
 export const Container = styled.div`
@@ -72,11 +72,8 @@ export const GroupButton = styled.div`
   width: 100%;
 `;
 
-export const RouteLink = styled(Link)`
+export const ButtonMenu = styled(NavLink)`
   text-decoration: none;
-`;
-
-export const ButtonMenu = styled.button`
   width: 100%;
   height: 48px;
   padding: 15px;
@@ -98,6 +95,10 @@ export const ButtonMenu = styled.button`
   }
   &:focus {
     outline: none;
+  }
+
+  &.active {
+    background-color: #4b574e;
   }
 `;
 

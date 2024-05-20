@@ -16,7 +16,6 @@ import {
   ButtonCloseNavbar,
   IconCloseNavbar,
   ButtonOpenNavbar,
-  RouteLink,
   OpenNavbarContainer,
   Logo2,
   ContainerCloseNavbar,
@@ -50,35 +49,29 @@ export function Sidebar() {
 
             <DivMenu>
               <GroupButton>
-                <RouteLink to="/">
-                  <ButtonMenu>
-                    <IconsMenu
-                      src="/src/assets/icons/edit.svg"
-                      alt="icone de editar"
-                    />
-                    <TextButton>Editar usuários</TextButton>
-                  </ButtonMenu>
-                </RouteLink>
+                <ButtonMenu to="/">
+                  <IconsMenu
+                    src="/src/assets/icons/edit.svg"
+                    alt="icone de editar"
+                  />
+                  <TextButton>Editar usuários</TextButton>
+                </ButtonMenu>
 
-                <RouteLink to="/manager-permissions-levels">
-                  <ButtonMenu>
-                    <IconsMenu
-                      src="/src/assets/icons/manage-access-levels.svg"
-                      alt="icone de gerenciar níveis de acesso"
-                    />
-                    <TextButton>Gerenciar níveis de acesso</TextButton>
-                  </ButtonMenu>
-                </RouteLink>
+                <ButtonMenu to="/manager-permissions-levels">
+                  <IconsMenu
+                    src="/src/assets/icons/manage-access-levels.svg"
+                    alt="icone de gerenciar níveis de acesso"
+                  />
+                  <TextButton>Gerenciar níveis de acesso</TextButton>
+                </ButtonMenu>
 
-                <RouteLink to="/download-apps">
-                  <ButtonMenu>
-                    <IconsMenu
-                      src="/src/assets/icons/dowload-app.svg"
-                      alt="icone de baixar app"
-                    />
-                    <TextButton>Baixar Apps</TextButton>
-                  </ButtonMenu>
-                </RouteLink>
+                <ButtonMenu to="/download-apps">
+                  <IconsMenu
+                    src="/src/assets/icons/dowload-app.svg"
+                    alt="icone de baixar app"
+                  />
+                  <TextButton>Baixar Apps</TextButton>
+                </ButtonMenu>
               </GroupButton>
             </DivMenu>
           </ContainerTop>
