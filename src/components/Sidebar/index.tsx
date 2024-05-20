@@ -49,7 +49,7 @@ export function Sidebar() {
 
             <DivMenu>
               <GroupButton>
-                <ButtonMenu to="/">
+                <ButtonMenu to="/edit-users">
                   <IconsMenu
                     src="/src/assets/icons/edit.svg"
                     alt="icone de editar"
