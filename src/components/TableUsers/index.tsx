@@ -1,8 +1,7 @@
 import { useState } from "react";
-import { ModalActivateUser } from "../ModalActivateUser";
 import { Actions, ButtonIcon, Container, Icon, StatusActive, StatusInactive, Table } from "./styles";
 import { User } from "../../pages/EditUsers";
-import { ModalDeactivateUser } from "../ModalDeactivateUser";
+import { Alert } from "../Alert";
 
 const accessLevel = {
   admin: 'Administrador',
@@ -76,17 +75,21 @@ export function TableUsers({
 
   return (
     <>
-      <ModalActivateUser
+      <Alert
+        alertText="Deseja reativar este usuário?"
+        buttonText="Reativar"
         visible={isActivateUserModalOpen}
         onClose={handleCloseActivateUserModal}
-        onActivateUser={handleActivateUser}
+        onClick={handleActivateUser}
         isLoading={isLoading}
       />
 
-      <ModalDeactivateUser
+      <Alert
+        alertText="Deseja desativar este usuário?"
+        buttonText="Desativar"
         visible={isDeactivateUserModalOpen}
         onClose={handleCloseDeactivateUserModal}
-        onDeactivateUser={handleDeactivateUser}
+        onClick={handleDeactivateUser}
         isLoading={isLoading}
       />
 
