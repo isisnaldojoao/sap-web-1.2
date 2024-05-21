@@ -1,20 +1,9 @@
 import { useState } from "react";
 import {
-  ButtonLogin,
   Container,
-  Img,
-  Input,
-  Label,
-  LinkAcess,
-  SubTitle,
-  Title,
-  P,
-  ContainerCard,
-  ContainerTitles,
-  ContainerForm,
-  InputLabelGroup,
-  ContainerInputLabelGroup,
+  ContainerInputLabel,
   IconViewPassword,
+  Form
 } from "./styles";
 
 export function FormLogin() {
@@ -26,41 +15,37 @@ export function FormLogin() {
 
   return (
     <Container>
-      <ContainerCard>
-        <Img src="/src/assets/AVB-02.svg" alt="logo-aco-verde-brasil" />
+      <img src="/src/assets/AVB-02.svg" alt="logo-aco-verde-brasil" />
 
-        <ContainerTitles>
-          <Title>Boas Vindas!</Title>
-          <SubTitle>Faça login para continuar</SubTitle>
-        </ContainerTitles>
+      <div className="container-title">
+        <h2>Boas Vindas!</h2>
+        <span>Faça login para continuar</span>
+      </div>
 
-        <ContainerForm>
-          <ContainerInputLabelGroup>
-            <InputLabelGroup>
-              <Label>E-mail</Label>
-              <Input type="email" placeholder="E-mail" />
-            </InputLabelGroup>
+      <Form>
+        <ContainerInputLabel>
+          <label>E-mail</label>
+          <input type="email" placeholder="E-mail" />
+        </ContainerInputLabel>
 
-            <InputLabelGroup>
-              <Label>Senha</Label>
-              <Input
-                type={showPassword ? "text" : "password"} // Altera o tipo do input para "text" se showPassword for true
-                placeholder="Senha"
-              />
-              <IconViewPassword
-                src="/src/assets/icons/view.svg"
-                onClick={togglePasswordVisibility} // Chama a função para alternar a visibilidade da senha ao clicar no ícone
-              />
-            </InputLabelGroup>
-          </ContainerInputLabelGroup>
-          
-          <ButtonLogin>ENTRAR</ButtonLogin>
+        <ContainerInputLabel>
+          <label>Senha</label>
+          <input
+            type={showPassword ? "text" : "password"} // Altera o tipo do input para "text" se showPassword for true
+            placeholder="Senha"
+          />
+          <IconViewPassword
+            src="/src/assets/icons/view.svg"
+            onClick={togglePasswordVisibility} // Chama a função para alternar a visibilidade da senha ao clicar no ícone
+          />
+        </ContainerInputLabel>
+        
+        <button type="submit">ENTRAR</button>
 
-          <P>
-            Não possui conta? <LinkAcess>Solicitar acesso</LinkAcess>
-          </P>
-        </ContainerForm>
-      </ContainerCard>
+        <span>
+          Não possui conta? <a>Solicitar acesso</a>
+        </span>
+      </Form>
     </Container>
   );
 }
