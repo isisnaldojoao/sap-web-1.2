@@ -1,6 +1,7 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Actions, ButtonIcon, Container, Icon, StatusActive, StatusInactive, Table } from "./styles";
-import { User } from "../../pages/EditUsers";
+import { User } from "../../pages/Users";
 import { Alert } from "../Alert";
 
 const accessLevel = {
@@ -20,6 +21,7 @@ export function TableUsers({
   onActivateUser,
   onDeactivateUser
 }: TableUsersProps) {
+  const navigate = useNavigate();
   const [isActivateUserModalOpen, setIsActivateUserModalOpen] = useState(false);
   const [isDeactivateUserModalOpen, setIsDeactivateUserModalOpen] = useState(false);
   const [selectedUser, setSelectedUser] = useState<null | User>(null);
@@ -73,6 +75,10 @@ export function TableUsers({
     }
   }
 
+  function handleEditUser() {
+    navigate('/users/edit', { replace: true ,state: selectedUser });
+  }
+
   return (
     <>
       <Alert
@@ -119,27 +125,28 @@ export function TableUsers({
                 <td>{user.lastLogin.toLocaleString()}</td>
                 <td>
                   <Actions>
-                    <ButtonIcon>
+                    <ButtonIcon type="button" onClick={handleEditUser}>
                       <Icon
                         src="/src/assets/icons/edit-icon.svg"
                         alt="ícone de editar usuário"
                       />
                     </ButtonIcon>
-                    <ButtonIcon>
+                    
                       {user.status === 'active' ? (
-                        <Icon
-                          src="/src/assets/icons/inactive-icon.svg"
-                          alt="ícone de desativar usuário"
-                          onClick={() => handleOpenDeactivateUserModal(user)}
-                        />
+                        <ButtonIcon type="button" onClick={() => handleOpenDeactivateUserModal(user)}>
+                          <Icon
+                            src="/src/assets/icons/inactive-icon.svg"
+                            alt="ícone de desativar usuário"
+                          />
+                        </ButtonIcon>
                       ) : (
-                        <Icon
-                          src="/src/assets/icons/active-icon.svg"
-                          alt="ícone de ativar usuário"
-                          onClick={() => handleOpenActivateUserModal(user)}
-                        />
+                        <ButtonIcon type="button" onClick={() => handleOpenActivateUserModal(user)}>
+                          <Icon
+                            src="/src/assets/icons/active-icon.svg"
+                            alt="ícone de ativar usuário"
+                          />
+                        </ButtonIcon>
                       )}
-                    </ButtonIcon>
                   </Actions>
                 </td>
               </tr>

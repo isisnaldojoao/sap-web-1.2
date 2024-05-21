@@ -26,7 +26,7 @@ const data: User[] = [
   { id: '10', name: 'Juliana Costa', user: 'juliana', email: 'juliana@usuario.com', accessLevel: 'supervisor', status: 'inactive', lastLogin: new Date('2022-08-11T10:30:20Z') }
 ];
 
-export const EditUsers = () => {
+export const Users = () => {
   const [users, setUsers] = useState<User[]>(data);
   
   function handleActivateUser(userId: string) {

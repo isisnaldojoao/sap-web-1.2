@@ -5,7 +5,8 @@ import { Home } from "./pages/Home";
 import { DownloadApps } from "./pages/DownloadApps";
 import { ManagerPermissionsLevels } from "./pages/ManagePermissionsLevels";
 import { AppLayout } from "./layouts/app";
-import { EditUsers } from "./pages/EditUsers";
+import { Users } from "./pages/Users";
+import { EditUser } from "./pages/EditUser";
 
 export function App() {
   return (
@@ -15,7 +16,10 @@ export function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/" element={<AppLayout />}>
           <Route path="/home" element={<Home />} />
-          <Route path="/edit-users" element={<EditUsers />} />
+          <Route path="/users">
+            <Route index element={<Users />} />
+            <Route path="edit" element={<EditUser />} />
+          </Route>
           <Route path="/download-apps" element={<DownloadApps />} />
           <Route
             path="/manager-permissions-levels"
