@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { CardUser } from "../CardUser";
 import {
   Container,
@@ -22,21 +21,20 @@ import {
   ContainerTop,
 } from "./styles";
 
-export function Sidebar() {
-  const [navbarOpen, setNavbarOpen] = useState(true); // Estado para controlar a visibilidade da navbar
+interface SidebarProps {
+  isOpen: boolean;
+  onToggle: () => void;
+}
 
-  const toggleNavbar = () => {
-    setNavbarOpen(!navbarOpen); // Alterna entre mostrar e ocultar a navbar
-  };
-
+export function Sidebar({ isOpen, onToggle }: SidebarProps) {
   return (
     <>
-      {navbarOpen && (
+      {isOpen && (
         <Container>
           <ContainerTop>
             <ContainerCloseNavbar>
               <Logo src="/src/assets/logo-avb-white.svg" />
-              <ButtonCloseNavbar onClick={toggleNavbar}>
+              <ButtonCloseNavbar onClick={onToggle}>
                 <IconCloseNavbar src="/src/assets/icons/close.svg" />
               </ButtonCloseNavbar>
             </ContainerCloseNavbar>
@@ -49,7 +47,7 @@ export function Sidebar() {
 
             <DivMenu>
               <GroupButton>
-                <ButtonMenu to="/edit-users">
+                <ButtonMenu to="/users">
                   <IconsMenu
                     src="/src/assets/icons/edit.svg"
                     alt="icone de editar"
@@ -86,10 +84,10 @@ export function Sidebar() {
         </Container>
       )}
 
-      {!navbarOpen && (
+      {!isOpen && (
         // Chama a função para alternar a visibilidade da navbar
         <OpenNavbarContainer>
-          <ButtonOpenNavbar onClick={toggleNavbar}>
+          <ButtonOpenNavbar onClick={onToggle}>
             <IconCloseNavbar src="/src/assets/icons/open-navbar.svg" />
           </ButtonOpenNavbar>
           <Logo2 src="/src/assets/AVB-02.svg" />

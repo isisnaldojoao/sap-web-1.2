@@ -1,11 +1,11 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
-  position: relative;
   background-color: #f5f5f5;
-  font-family: "Poppins";
-  color: #344054;
   min-height: 100vh;
-  display: flex;
-  overflow: hidden;
+`;
+
+export const Main = styled.main<{ $isOpen: boolean }>`
+  margin-left: ${(props) => (props.$isOpen ? '358px' : '0')};
+  transition: all 0.3s ease;
 `;

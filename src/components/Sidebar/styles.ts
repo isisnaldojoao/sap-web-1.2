@@ -1,15 +1,16 @@
 import { NavLink } from "react-router-dom";
 import styled from "styled-components";
 
-export const Container = styled.div`
-  background: #86a693;
+export const Container = styled.aside`
+  position: fixed;
+  top: 0;
   width: 358px;
-  height: 100vh;
-  font-family: "Poppins";
-  color: white;
-  padding: 39px 23px 28px;
+  height: 100%;
   display: flex;
   flex-direction: column;
+  padding: 39px 23px 28px;
+  color: white;
+  background: #86a693;
 `;
 
 export const ContainerTop = styled.div`
@@ -30,12 +31,12 @@ export const ButtonCloseNavbar = styled.button`
   padding: 10px;
   border-radius: 8px;
   background-color: #4b574e;
-  border: none;
-  cursor: pointer;
+
   &:hover {
     background-color: #5c7e63;
     transform: scale(1.05);
   }
+
   &:focus {
     outline: none;
   }
@@ -81,18 +82,15 @@ export const ButtonMenu = styled(NavLink)`
   border-radius: 8px;
   background-color: transparent;
   color: white;
-  border: none;
-  cursor: pointer;
   display: flex;
   flex-direction: row;
   text-align: center;
-  border: none;
-  cursor: pointer;
 
   &:hover {
     background-color: #4b574e;
     transform: scale(1.05);
   }
+
   &:focus {
     outline: none;
   }
@@ -103,7 +101,6 @@ export const ButtonMenu = styled(NavLink)`
 `;
 
 export const TextButton = styled.p`
-  font-family: "Poppins";
   font-weight: 500;
   font-size: 16px;
   line-height: 24px;
@@ -122,8 +119,6 @@ export const ButtonExit = styled.button`
   border-radius: 8px;
   background-color: transparent;
   color: white;
-  border: none;
-  cursor: pointer;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -131,7 +126,6 @@ export const ButtonExit = styled.button`
 `;
 
 export const TextButtonExit = styled.p`
-  font-family: "Poppins";
   font-weight: 500;
   font-size: 16px;
   line-height: 24px;
@@ -143,19 +137,19 @@ export const IconButtonExit = styled.img`
 `;
 
 export const OpenNavbarContainer = styled.div`
-  position: absolute;
-  top: 40px;
-  left: 23px;
+  position: fixed;
+  width: 100%;
+  padding: 40px 23px;
   display: flex;
   flex-direction: row;
   align-items: center;
   gap: 30px;
 
   @media (min-width: 640px) {
-    position: static;
+    width: fit-content;
+    height: 100%;
     align-items: flex-start;
-    margin-top: 45px;
-    margin-left: 23px;
+    padding: 45px 23px;
   }
 `
 
@@ -174,12 +168,12 @@ export const ButtonOpenNavbar = styled.button`
   padding: 10px;
   border-radius: 8px;
   background-color: #4b574e;
-  border: none;
-  cursor: pointer;
+
   &:hover {
     background-color: #5c7e63;
     transform: scale(1.05);
   }
+
   &:focus {
     outline: none;
   }
