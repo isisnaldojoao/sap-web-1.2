@@ -69,7 +69,6 @@ export const Form = styled.form`
 `;
 
 export const ContainerInputLabel= styled.div`
-  position: relative;
   display: flex;
   flex-direction: column;
   gap: 7px;
@@ -108,21 +107,10 @@ export const ContainerInputLabel= styled.div`
       }
     }
   }
-`;
 
-export const IconViewPassword = styled.img`
-  width: 24px;
-  height: 24px;
-  position: absolute;
-  bottom: 12px;
-  right: 16px;
-  cursor: pointer;
-
-  &:hover {
-    transform: scale(1.05);
-  }
-
-  &:focus {
-    outline: none;
+  .error {
+    align-self: flex-start;
+    font-size: 14px;
+    color: #ef4444;
   }
 `;
