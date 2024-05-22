@@ -31,12 +31,6 @@ export const ModalBody = styled.div`
     line-height: 0;
   }
 
-  > img {
-    width: 96px;
-    height: 96px;
-    margin: 32px 0 41px;
-  }
-
   h3 {
     font-weight: 600;
     font-size: 20px;
