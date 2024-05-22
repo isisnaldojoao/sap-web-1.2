@@ -1,4 +1,5 @@
 import { CardUser } from "../CardUser";
+import { useNavigate } from "react-router-dom";
 import {
   Container,
   ContainerCardUser,

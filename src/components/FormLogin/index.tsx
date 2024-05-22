@@ -1,4 +1,7 @@
 import { useState } from "react";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+
 import {
   Container,
   ContainerInputLabel,
@@ -8,9 +11,52 @@ import {
 
 export function FormLogin() {
   const [showPassword, setShowPassword] = useState(false); // Estado para controlar a visibilidade da senha
+  const [email, setEmail] = useState(""); 
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const navigate = useNavigate(); 
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword); // Alterna entre mostrar e ocultar a senha
+  };
+  
+  interface ResponseLogin {
+    accessToken: string;
+    payload: { email: string; username: string }
+  }
+
+  const validateForm = () => {
+    if (!email || !password) {
+      setError("Por favor, preencha todos os campos.");
+      return false;
+    }
+    setError("");
+    return true;
+  };
+
+  const handleLogin = async (event:any) => {
+    event.preventDefault();
+
+    if (!validateForm()) {
+      return;
+    }
+
+    try {
+      let urlBase = import.meta.env.VITE_API_URL;
+      const response = await axios.post(`${urlBase}/login`, {
+        email,
+        password
+      });
+      
+      const { accessToken } = response.data as ResponseLogin;
+      localStorage.setItem('token', accessToken);
+      console.log('Logged in successfully:', accessToken);
+      navigate("/home");
+
+    } catch (error) {
+      setError('Houve um erro ao fazer login. Verifique suas credenciais e tente novamente.');
+      console.error('There was an error logging in!', error);
+    }
   };
 
   return (
