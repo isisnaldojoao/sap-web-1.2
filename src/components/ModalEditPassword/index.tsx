@@ -1,6 +1,23 @@
-import { FormEvent, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
 import { MdClose } from "react-icons/md";
 import { ContainerInputLabel, Form, IconViewPassword, ModalBody, Overlay } from "./styles";
+
+const editPasswordSchema = z.object({
+  password: z
+		.string()
+		.min(6, { message: 'A senha precisa ter no mínimo 6 caracteres.' }),
+  confirmPassword: z
+		.string()
+		.min(6, { message: 'A confirmação de senha precisa ter no mínimo 6 caracteres.' }),
+}).refine((data) => data.password === data.confirmPassword, {
+  message: 'As senhas não conferem.',
+  path: ['confirmPassword'],
+});
+
+type EditPasswordSchema = z.infer<typeof editPasswordSchema>;
 
 interface ModalEditPasswordProps {
   visible: boolean;
@@ -14,7 +31,11 @@ export function ModalEditPassword({
   onClick
 }: ModalEditPasswordProps) {
   const [showPassword, setShowPassword] = useState(false); // Estado para controlar a visibilidade da senha
-  const [showRepeatPassword, setShowRepeatPassword] = useState(false); // Estado para controlar a visibilidade da senha
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false); // Estado para controlar a visibilidade da senha
+  
+  const { register, handleSubmit, formState: { errors } } = useForm<EditPasswordSchema>({
+		resolver: zodResolver(editPasswordSchema),
+	})
 
   useEffect(() => {
     function handleKeyDown(event: KeyboardEvent) {
@@ -46,13 +67,12 @@ export function ModalEditPassword({
     setShowPassword(!showPassword); // Alterna entre mostrar e ocultar a senha
   };
 
-  const toggleRepeatPasswordVisibility = () => {
-    setShowRepeatPassword(!showRepeatPassword); // Alterna entre mostrar e ocultar a senha
+  const toggleConfirmPasswordVisibility = () => {
+    setShowConfirmPassword(!showConfirmPassword); // Alterna entre mostrar e ocultar a senha
   };
 
-  function handleEditPassword(event: FormEvent) {
-    event.preventDefault();
-
+  function editPassword(data: EditPasswordSchema) {
+    console.log(data);
     onClick();
   }
 
@@ -65,34 +85,44 @@ export function ModalEditPassword({
 
         <h3>Mudar minha senha</h3>
 
-        <Form onSubmit={handleEditPassword}>
+        <Form onSubmit={handleSubmit(editPassword)}>
           <div>
             <ContainerInputLabel>
               <label htmlFor="password">Nova senha</label>
-              <input
-                type={showPassword ? "text" : "password"} // Altera o tipo do input para "text" se showPassword for true
-                name="password"
-                id="password"
-                placeholder="Senha"
-              />
-              <IconViewPassword
-                src="/src/assets/icons/view.svg"
-                onClick={togglePasswordVisibility} // Chama a função para alternar a visibilidade da senha ao clicar no ícone
-              />
+              <div className="password">
+                <input
+                  {...register('password')}
+                  type={showPassword ? "text" : "password"} // Altera o tipo do input para "text" se showPassword for true
+                  id="password"
+                  placeholder="Senha"
+                />
+                <IconViewPassword
+                  src="/src/assets/icons/view.svg"
+                  onClick={togglePasswordVisibility} // Chama a função para alternar a visibilidade da senha ao clicar no ícone
+                />
+              </div>
+              {errors?.password && (
+                <span className="error">{errors.password.message}</span>
+              )}
             </ContainerInputLabel>
 
             <ContainerInputLabel>
-              <label htmlFor="repeatPassword">Repita a nova senha</label>
-              <input
-                type={showRepeatPassword ? "text" : "password"} // Altera o tipo do input para "text" se showPassword for true
-                name="repeatPassword"
-                id="repeatPassword"
-                placeholder="Repita a nova senha"
-              />
-              <IconViewPassword
-                src="/src/assets/icons/view.svg"
-                onClick={toggleRepeatPasswordVisibility} // Chama a função para alternar a visibilidade da senha ao clicar no ícone
-              />
+              <label htmlFor="confirmPassword">Repita a nova senha</label>
+              <div className="password">
+                <input
+                  {...register('confirmPassword')}
+                  type={showConfirmPassword ? "text" : "password"} // Altera o tipo do input para "text" se showPassword for true
+                  id="confirmPassword"
+                  placeholder="Repita a nova senha"
+                />
+                <IconViewPassword
+                  src="/src/assets/icons/view.svg"
+                  onClick={toggleConfirmPasswordVisibility} // Chama a função para alternar a visibilidade da senha ao clicar no ícone
+                />
+              </div>
+              {errors?.confirmPassword && (
+                <span className="error">{errors.confirmPassword.message}</span>
+              )}
             </ContainerInputLabel>
           </div>
 
