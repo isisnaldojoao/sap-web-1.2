@@ -35,7 +35,8 @@ export const ModalBody = styled.div`
     font-weight: 600;
     font-size: 20px;
     line-height: 30px;
-    margin-bottom: 68px;
+    margin-bottom: 98px;
+    margin-top: 139px;
   }
 
   button.primary {
