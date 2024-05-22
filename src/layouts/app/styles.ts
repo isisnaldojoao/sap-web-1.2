@@ -7,5 +7,5 @@ export const Container = styled.div`
 
 export const Main = styled.main<{ $isOpen: boolean }>`
   margin-left: ${(props) => (props.$isOpen ? '358px' : '0')};
-  transition: all 0.3s ease;
+  transition: margin-left 0.3s ease;
 `;

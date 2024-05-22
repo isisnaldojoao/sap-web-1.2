@@ -75,10 +75,6 @@ export function TableUsers({
     }
   }
 
-  function handleEditUser() {
-    navigate('/users/edit', { replace: true ,state: selectedUser });
-  }
-
   return (
     <>
       <Alert
@@ -125,7 +121,7 @@ export function TableUsers({
                 <td>{user.lastLogin.toLocaleString()}</td>
                 <td>
                   <Actions>
-                    <ButtonIcon type="button" onClick={handleEditUser}>
+                    <ButtonIcon type="button" onClick={() => navigate(`/users/${user.id}/edit`)}>
                       <Icon
                         src="/src/assets/icons/edit-icon.svg"
                         alt="ícone de editar usuário"

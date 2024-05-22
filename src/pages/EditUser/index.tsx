@@ -14,24 +14,26 @@ export const EditUser = () => {
       <Form>
         <div>
           <ContainerInputLabel className="name">
-            <label>Nome</label>
+            <label htmlFor="name">Nome</label>
             <input type="text" placeholder="Nome" />
           </ContainerInputLabel>
 
           <ContainerInputLabel>
-            <label>E-mail</label>
+            <label htmlFor="email">E-mail</label>
             <input type="email" placeholder="E-mail" />
           </ContainerInputLabel>
 
           <ContainerInputLabel>
-            <label>Usuário</label>
+            <label htmlFor="user">Usuário</label>
             <input type="text" placeholder="Usuário" />
           </ContainerInputLabel>
 
           <ContainerInputLabel>
-            <label>Senha</label>
+            <label htmlFor="password">Senha</label>
             <input
               type={showPassword ? "text" : "password"} // Altera o tipo do input para "text" se showPassword for true
+              name="password"
+              id="password"
               placeholder="Senha"
             />
             <IconViewPassword
@@ -41,8 +43,12 @@ export const EditUser = () => {
           </ContainerInputLabel>
 
           <ContainerInputLabel>
-            <label>Nível de acesso</label>
-            <input type="text" placeholder="Nível de acesso" />
+            <label htmlFor="accessLevel">Nível de acesso</label>
+            <select name="accessLevel" id="accessLevel">
+              <option value="operator">Operador</option>
+              <option value="supervisor">Supervisor</option>
+              <option value="admin">Administrador</option>
+            </select>
           </ContainerInputLabel>
         </div>
 

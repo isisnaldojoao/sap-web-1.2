@@ -37,7 +37,7 @@ export const Form = styled.form`
     font-weight: 600;
     text-transform: uppercase;
     color: white;
-    width: fit-content;
+    width: 100%;
     height: 41px;
     padding: 10px 24px;
     border-radius: 8px;
@@ -79,6 +79,10 @@ export const Form = styled.form`
         grid-column: span 2 / span 2;
       }
     }
+
+    button {
+      width: fit-content;
+    }
   }
 `;
 
@@ -94,12 +98,13 @@ export const ContainerInputLabel= styled.div`
     text-align: start;
   }
 
-  input {
+  input, select {
     width: 100%;
     height: 48px;
     padding: 0px 16px;
     border-radius: 8px;
     border: 1px solid #d0d5dd;
+    background-color: white;
     font-size: 14px;
     line-height: 21px;
   }

@@ -18,12 +18,18 @@ export function App() {
           <Route path="/home" element={<Home />} />
           <Route path="/users">
             <Route index element={<Users />} />
-            <Route path="edit" element={<EditUser />} />
+            <Route 
+              path=":userId/edit"
+              element={<EditUser />} 
+            />
           </Route>
-          <Route path="/download-apps" element={<DownloadApps />} />
           <Route
             path="/manager-permissions-levels"
             element={<ManagerPermissionsLevels />}
+          />
+          <Route 
+            path="/download-apps" 
+            element={<DownloadApps />} 
           />
         </Route>
       </Routes>

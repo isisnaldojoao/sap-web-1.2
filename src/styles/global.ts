@@ -13,7 +13,7 @@ export const GlobalStyle = createGlobalStyle`
     text-rendering: optimizeLegibility;
   }
 
-  body, input, textarea, button {
+  body, input, textarea, button, select {
     font: 400 1rem "Poppins", sans-serif;
     color: #344054;
   }
