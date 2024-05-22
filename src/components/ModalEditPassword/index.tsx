@@ -1,4 +1,5 @@
 import { FormEvent, useEffect, useState } from "react";
+import { MdClose } from "react-icons/md";
 import { ContainerInputLabel, Form, IconViewPassword, ModalBody, Overlay } from "./styles";
 
 interface ModalEditPasswordProps {
@@ -59,7 +60,7 @@ export function ModalEditPassword({
     <Overlay className="overlay">
       <ModalBody>
         <button className="close-modal" type="button" onClick={onClose}>
-          <img src="/src/assets/icons/close-modal.svg" alt="Ícone de fechar modal" />
+          <MdClose style={{ color: 'black', fontSize: '24px' }} />
         </button>
 
         <h3>Mudar minha senha</h3>
