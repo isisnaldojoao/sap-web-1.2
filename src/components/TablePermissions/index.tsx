@@ -109,7 +109,7 @@ export function TablePermissions({
                 <td>{permission.status === 'active' ? <StatusActive>Ativo</StatusActive> : <StatusInactive>Desativado</StatusInactive>}</td>
                 <td>
                   <Actions>
-                    <ButtonIcon type="button" onClick={() => navigate(`/permissions/${permission.code}/edit`)}>
+                    <ButtonIcon type="button" onClick={() => navigate(`/manager-permissions-levels/${permission.code}/edit`)}>
                       <Icon
                         src="/src/assets/icons/edit-icon.svg"
                         alt="ícone de editar nível de permissão"

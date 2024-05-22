@@ -8,6 +8,7 @@ import { AppLayout } from "./layouts/app";
 import { Users } from "./pages/Users";
 import { EditUser } from "./pages/EditUser";
 import { Profile } from "./pages/Profile";
+import { EditPermissionLevel } from "./pages/EditPermissionLevel";
 
 export function App() {
   return (
@@ -24,10 +25,13 @@ export function App() {
               element={<EditUser />} 
             />
           </Route>
-          <Route
-            path="/manager-permissions-levels"
-            element={<ManagerPermissionsLevels />}
-          />
+          <Route path="/manager-permissions-levels">
+            <Route index element={<ManagerPermissionsLevels />} />
+            <Route 
+              path=":permissionId/edit"
+              element={<EditPermissionLevel />} 
+            />
+          </Route>
           <Route 
             path="/download-apps" 
             element={<DownloadApps />} 
