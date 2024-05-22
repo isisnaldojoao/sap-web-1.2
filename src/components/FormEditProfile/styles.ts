@@ -94,22 +94,6 @@ export const Form = styled.form`
     }
   }
 
-  span {
-    font-size: 12px;
-    line-height: 18px;
-
-    a {
-      color: #1570ef;
-      text-decoration: none;
-      cursor: pointer;
-
-      &:focus {
-        color: #1570ef;
-        outline: none;
-      }
-    }
-  }
-
   @media (min-width: 640px) {
     > div {
       grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -122,7 +106,6 @@ export const Form = styled.form`
 `;
 
 export const ContainerInputLabel= styled.div`
-  position: relative;
   display: flex;
   flex-direction: column;
   gap: 7px;
@@ -142,5 +125,11 @@ export const ContainerInputLabel= styled.div`
     background-color: white;
     font-size: 14px;
     line-height: 21px;
+  }
+
+  .error {
+    align-self: flex-start;
+    font-size: 14px;
+    color: #ef4444;
   }
 `;

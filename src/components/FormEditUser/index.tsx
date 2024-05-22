@@ -13,7 +13,7 @@ const editUserSchema = z.object({
 	name: z
 		.string()
 		.min(3, { message: 'O nome precisa ter no mínimo 3 caracteres.' }),
-    email: z
+  email: z
 		.string()
 		.email({ message: 'E-mail inválido.' }),
   user: z

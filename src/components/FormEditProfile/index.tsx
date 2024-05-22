@@ -1,4 +1,7 @@
-import { FormEvent, useState } from "react";
+import { useState } from "react";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
 import {
   Container,
   ContainerImage,
@@ -8,19 +11,33 @@ import {
 import { AlertSuccess } from "../AlertSuccess";
 import { ModalEditPassword } from "../ModalEditPassword";
 
+const editProfileSchema = z.object({
+	name: z
+		.string()
+		.min(3, { message: 'O nome precisa ter no mínimo 3 caracteres.' }),
+  user: z
+    .string()
+    .min(3, { message: 'O usuário precisa ter no mínimo 3 caracteres.' }),
+});
+
+type EditProfileSchema = z.infer<typeof editProfileSchema>;
+
 export function FormEditProfile() {
   const [isAlertSuccessEditProfileOpen, setIsAlertSuccessEditProfileOpen] = useState(false);
   const [isAlertSuccessEditPasswordOpen, setIsAlertSuccessEditPasswordOpen] = useState(false);
   const [isModalEditPasswordOpen, setIsModalEditPasswordOpen] = useState(false);
+
+  const { register, handleSubmit, formState: { errors } } = useForm<EditProfileSchema>({
+		resolver: zodResolver(editProfileSchema),
+	})
 
   function handleEditPassword() {
     setIsModalEditPasswordOpen(false);
     setIsAlertSuccessEditPasswordOpen(true);
   }
 
-  function handleEditProfile(event: FormEvent) {
-    event.preventDefault();
-
+  function editProfile(data: EditProfileSchema) {
+    console.log(data);
     setIsAlertSuccessEditProfileOpen(true);
   }
 
@@ -55,16 +72,32 @@ export function FormEditProfile() {
           </div>
         </ContainerImage>
 
-        <Form onSubmit={handleEditProfile}>
+        <Form onSubmit={handleSubmit(editProfile)}>
           <div>
             <ContainerInputLabel>
               <label htmlFor="name">Nome</label>
-              <input type="text" placeholder="Nome" />
+              <input 
+                {...register('name')}
+                type="text" 
+                id="name"
+                placeholder="Nome" 
+              />
+              {errors?.name && (
+                <span className="error">{errors.name.message}</span>
+              )}
             </ContainerInputLabel>
 
             <ContainerInputLabel>
               <label htmlFor="user">Usuário</label>
-              <input type="text" placeholder="Usuário" />
+              <input 
+                {...register('user')}
+                type="text" 
+                id="user"
+                placeholder="Usuário" 
+              />
+              {errors?.user && (
+                <span className="error">{errors.user.message}</span>
+              )}
             </ContainerInputLabel>
           </div>
 
