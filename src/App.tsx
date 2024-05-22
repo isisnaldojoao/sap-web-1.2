@@ -7,6 +7,7 @@ import { ManagerPermissionsLevels } from "./pages/ManagePermissionsLevels";
 import { AppLayout } from "./layouts/app";
 import { Users } from "./pages/Users";
 import { EditUser } from "./pages/EditUser";
+import { Profile } from "./pages/Profile";
 
 export function App() {
   return (
@@ -30,6 +31,10 @@ export function App() {
           <Route 
             path="/download-apps" 
             element={<DownloadApps />} 
+          />
+          <Route 
+            path="/profile" 
+            element={<Profile />} 
           />
         </Route>
       </Routes>

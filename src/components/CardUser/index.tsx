@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import { MdOutlineModeEdit } from "react-icons/md";
 import {
   Container,
@@ -11,6 +12,8 @@ import {
 } from "./styles";
 
 export function CardUser() {
+  const navigate = useNavigate()
+
   return (
     <Container>
       <DivImgText>
@@ -23,7 +26,7 @@ export function CardUser() {
       </DivImgText>
 
       <ContainerButtonIcon>
-        <EditProfileButton>
+        <EditProfileButton onClick={() => navigate('/profile')}>
           <MdOutlineModeEdit />
           Editar perfil
         </EditProfileButton>
