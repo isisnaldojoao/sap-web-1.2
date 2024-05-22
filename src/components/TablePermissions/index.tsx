@@ -97,7 +97,7 @@ export function TablePermissions({
               <th>Nome</th>
               <th>Nível de acesso</th>
               <th>Status</th>
-              <th>Ações</th>
+              <th style={{ width: '84px' }}>Ações</th>
             </tr>
           </thead>
           <tbody>

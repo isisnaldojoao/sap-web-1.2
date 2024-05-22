@@ -106,7 +106,7 @@ export function TableUsers({
               <th>Nível de acesso</th>
               <th>Status</th>
               <th>Último login</th>
-              <th>Ações</th>
+              <th style={{ width: '84px' }}>Ações</th>
             </tr>
           </thead>
           <tbody>
