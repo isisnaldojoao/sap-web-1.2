@@ -69,7 +69,6 @@ export const Form = styled.form`
 `;
 
 export const ContainerInputLabel= styled.div`
-  position: relative;
   display: flex;
   flex-direction: column;
   gap: 7px;
@@ -89,6 +88,16 @@ export const ContainerInputLabel= styled.div`
     background-color: white;
     font-size: 14px;
     line-height: 21px;
+  }
+
+  div.password {
+    position: relative;
+  }
+
+  .error {
+    align-self: flex-start;
+    font-size: 14px;
+    color: #ef4444;
   }
 `;
 

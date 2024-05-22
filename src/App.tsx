@@ -1,4 +1,4 @@
-import { Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes } from "react-router-dom";
 import { Login } from "./pages/Login";
 import { GlobalStyle } from "./styles/global";
 import { Home } from "./pages/Home";
@@ -17,6 +17,7 @@ export function App() {
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route path="/" element={<AppLayout />}>
+          <Route index element={<Navigate replace to='/home' />} />
           <Route path="/home" element={<Home />} />
           <Route path="/users">
             <Route index element={<Users />} />

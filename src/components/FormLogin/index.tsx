@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -16,12 +17,13 @@ const loginSchema = z.object({
   password: z
 		.string()
 		.min(1, { message: 'A senha é obrigatória.' }),
-})
+});
 
-type LoginSchema = z.infer<typeof loginSchema>
+type LoginSchema = z.infer<typeof loginSchema>;
 
 export function FormLogin() {
   const [showPassword, setShowPassword] = useState(false); // Estado para controlar a visibilidade da senha
+  const navigate = useNavigate()
 
   const { register, handleSubmit, formState } = useForm<LoginSchema>({
 		resolver: zodResolver(loginSchema),
@@ -33,6 +35,7 @@ export function FormLogin() {
 
   function login({ email, password }: LoginSchema) {
     console.log({ email, password });
+    navigate('/home')
   }
 
   return (
@@ -46,10 +49,11 @@ export function FormLogin() {
 
       <Form onSubmit={handleSubmit(login)}>
         <ContainerInputLabel>
-          <label>E-mail</label>
+          <label htmlFor="email">E-mail</label>
           <input 
             {...register('email')}
             type="email" 
+            id="email"
             placeholder="E-mail" 
           />
           {formState.errors?.email && (
@@ -58,11 +62,12 @@ export function FormLogin() {
         </ContainerInputLabel>
 
         <ContainerInputLabel>
-          <label>Senha</label>
+          <label htmlFor="password">Senha</label>
           <div className="password">
             <input
               {...register('password')}
               type={showPassword ? "text" : "password"} // Altera o tipo do input para "text" se showPassword for true
+              id="password"
               placeholder="Senha"
             />
             <IconViewPassword
