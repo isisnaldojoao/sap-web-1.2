@@ -1,63 +1,5 @@
 import styled from "styled-components";
 
-export const Container = styled.div`
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  gap: 30px;
-`;
-
-export const ContainerImage = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 44px;
-  padding-bottom: 28px;
-  border-bottom: 1px solid #00000026;
-
-  img {
-    vertical-align: middle;
-    width: 151px;
-    height: 151px;
-    border-radius: 50%;
-    background-size: cover;
-  }
-
-  > div {
-    display: flex;
-    gap: 16px;
-
-    button {
-      align-self: center;
-      background: #86a693;
-      font-size: 14px;
-      font-weight: 600;
-      text-transform: uppercase;
-      color: white;
-      width: fit-content;
-      padding: 10px 24px;
-      border-radius: 8px;
-      border: none;
-      cursor: pointer;
-      transition: background-color 0.3s, transform 0.2s;
-  
-      &:hover {
-        background-color: #5c7e63;
-        transform: scale(1.05);
-      }
-  
-      &:focus {
-        outline: none;
-      }
-    }
-  }
-
-  @media (min-width: 768px) {
-    flex-direction: row;
-    align-items: flex-end;
-  }
-`;
-
 export const Form = styled.form`
   flex: 1;
   display: flex;
@@ -78,6 +20,7 @@ export const Form = styled.form`
     text-transform: uppercase;
     color: white;
     width: 100%;
+    height: 41px;
     padding: 10px 24px;
     border-radius: 8px;
     border: none;
@@ -94,9 +37,29 @@ export const Form = styled.form`
     }
   }
 
+  span {
+    font-size: 12px;
+    line-height: 18px;
+
+    a {
+      color: #1570ef;
+      text-decoration: none;
+      cursor: pointer;
+
+      &:focus {
+        color: #1570ef;
+        outline: none;
+      }
+    }
+  }
+
   @media (min-width: 640px) {
     > div {
       grid-template-columns: repeat(2, minmax(0, 1fr));
+
+      .name {
+        grid-column: span 2 / span 2;
+      }
     }
 
     button {
@@ -125,6 +88,24 @@ export const ContainerInputLabel= styled.div`
     background-color: white;
     font-size: 14px;
     line-height: 21px;
+  }
+
+  > div {
+    display: flex;
+    flex-direction: column;
+    align-self: flex-start;
+    gap: 4px;
+
+    > div {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+
+      input {
+        height: min-content;
+        width: min-content;
+      }
+    }
   }
 
   .error {

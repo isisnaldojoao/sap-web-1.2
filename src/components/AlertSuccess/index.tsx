@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { MdClose } from "react-icons/md";
 import { ModalBody, Overlay } from "./styles";
 
 export interface AlertSuccessProps {
@@ -44,7 +45,7 @@ export function AlertSuccess({
     <Overlay className="overlay">
       <ModalBody>
         <button className="close-modal" type="button" onClick={onClose}>
-          <img src="/src/assets/icons/close-modal.svg" alt="Ícone de fechar modal" />
+          <MdClose style={{ color: 'black', fontSize: '24px' }} />
         </button>
 
         <h3>{alertText}</h3>

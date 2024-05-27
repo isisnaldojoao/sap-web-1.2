@@ -22,4 +22,8 @@ export const GlobalStyle = createGlobalStyle`
     border: none;
     cursor: pointer;
   }
+
+  input[type=password]::-ms-reveal, input[type=password]::-ms-clear {
+    display: none;
+  }
 `;

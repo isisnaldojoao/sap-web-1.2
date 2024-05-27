@@ -1,3 +1,4 @@
+import { MdMenu } from "react-icons/md";
 import { CardUser } from "../CardUser";
 import { useNavigate } from "react-router-dom";
 import {
@@ -91,7 +92,7 @@ export function Sidebar({ isOpen, onToggle }: SidebarProps) {
         // Chama a função para alternar a visibilidade da navbar
         <OpenNavbarContainer>
           <ButtonOpenNavbar onClick={onToggle}>
-            <IconCloseNavbar src="/src/assets/icons/open-navbar.svg" />
+            <MdMenu style={{ color: 'white', fontSize: '26px' }} />
           </ButtonOpenNavbar>
           <Logo2 src="/src/assets/AVB-02.svg" />
         </OpenNavbarContainer>

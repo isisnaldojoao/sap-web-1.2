@@ -1,5 +1,8 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
 
 import {
   Container,
@@ -9,6 +12,17 @@ import {
 } from "./styles";
 import { useAuth } from "../../context/AuthProvider/useAuth";
 
+const loginSchema = z.object({
+	email: z
+		.string()
+		.email({ message: 'E-mail inválido.' }),
+  password: z
+		.string()
+		.min(1, { message: 'A senha é obrigatória.' }),
+});
+
+type LoginSchema = z.infer<typeof loginSchema>;
+
 export function FormLogin() {
   const [showPassword, setShowPassword] = useState(false); // Estado para controlar a visibilidade da senha
   const [email, setEmail] = useState(""); 
@@ -16,6 +30,11 @@ export function FormLogin() {
   const [error, setError] = useState("");
   const navigate = useNavigate(); 
   const auth = useAuth();
+  const navigate = useNavigate()
+
+  const { register, handleSubmit, formState } = useForm<LoginSchema>({
+		resolver: zodResolver(loginSchema),
+	})
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword); // Alterna entre mostrar e ocultar a senha
@@ -54,6 +73,11 @@ export function FormLogin() {
     }
   };
 
+  function login({ email, password }: LoginSchema) {
+    console.log({ email, password });
+    navigate('/home')
+  }
+
   return (
     <Container>
       <img src="/src/assets/AVB-02.svg" alt="logo-aco-verde-brasil" />
@@ -63,29 +87,37 @@ export function FormLogin() {
         <span>Faça login para continuar</span>
       </div>
 
-      <Form onSubmit={handleLogin}>
+      <Form onSubmit={handleLogin(login)}>
         <ContainerInputLabel>
-          <label>E-mail</label>
+          <label htmlFor="email">E-mail</label>
           <input 
+            {...register('email')}
             type="email" 
+            id="email"
             placeholder="E-mail" 
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
           />
+          {formState.errors?.email && (
+            <span className="error">{formState.errors.email.message}</span>
+          )}
         </ContainerInputLabel>
 
         <ContainerInputLabel>
-          <label>Senha</label>
-          <input
-            type={showPassword ? "text" : "password"} // Altera o tipo do input para "text" se showPassword for true
-            placeholder="Senha"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-          <IconViewPassword
-            src="/src/assets/icons/view.svg"
-            onClick={togglePasswordVisibility} // Chama a função para alternar a visibilidade da senha ao clicar no ícone
-          />
+          <label htmlFor="password">Senha</label>
+          <div className="password">
+            <input
+              {...register('password')}
+              type={showPassword ? "text" : "password"} // Altera o tipo do input para "text" se showPassword for true
+              id="password"
+              placeholder="Senha"
+            />
+            <IconViewPassword
+              src="/src/assets/icons/view.svg"
+              onClick={togglePasswordVisibility} // Chama a função para alternar a visibilidade da senha ao clicar no ícone
+            />
+          </div>
+          {formState.errors?.password && (
+            <span className="error">{formState.errors.password.message}</span>
+          )}
         </ContainerInputLabel>
         
         <button type="submit">ENTRAR</button>
