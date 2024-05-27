@@ -8,36 +8,34 @@ import { AppLayout } from "./layouts/app";
 import { Users } from "./pages/Users";
 import { EditUser } from "./pages/EditUser";
 import { Profile } from "./pages/Profile";
+import { AuthProvider } from "./context/AuthProvider";
+import { ProtectedLayout } from "./components/ProtectedLayout";
 
 export function App() {
   return (
-    <div className="App">
-      <GlobalStyle />
-      <Routes>
-        <Route path="/login" element={<Login />} />
-        <Route path="/" element={<AppLayout />}>
-          <Route path="/home" element={<Home />} />
-          <Route path="/users">
-            <Route index element={<Users />} />
-            <Route 
-              path=":userId/edit"
-              element={<EditUser />} 
-            />
-          </Route>
-          <Route
-            path="/manager-permissions-levels"
-            element={<ManagerPermissionsLevels />}
-          />
-          <Route 
-            path="/download-apps" 
-            element={<DownloadApps />} 
-          />
-          <Route 
-            path="/profile" 
-            element={<Profile />} 
-          />
-        </Route>
-      </Routes>
-    </div>
+      <AuthProvider>
+        <div className="App">
+            <GlobalStyle />
+            <Routes>
+              <Route path="/login" element={<Login />} />
+              <Route path="/" element={<AppLayout />}>
+                <Route path="/home" element={<Home />} />
+                <Route path="/users">
+                  <Route index element={<Users />} />
+                  <Route path=":userId/edit" element={<ProtectedLayout><EditUser /></ProtectedLayout>} />
+                </Route>
+                <Route
+                  path="/manager-permissions-levels"
+                  element={<ProtectedLayout><ManagerPermissionsLevels /></ProtectedLayout>}
+                />
+                <Route 
+                  path="/download-apps" 
+                  element={<ProtectedLayout><DownloadApps /></ProtectedLayout>} 
+                />
+                <Route path="/profile" element={<Profile />} />
+              </Route>
+            </Routes>
+        </div>
+      </AuthProvider> // AuthProvider
   );
 }
