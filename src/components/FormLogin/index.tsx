@@ -23,14 +23,16 @@ const loginSchema = z.object({
 
 type LoginSchema = z.infer<typeof loginSchema>;
 
+// interface LoginResponse {
+//   accessToken: string;
+//   payload: { email: string; username: string }
+// }
+
 export function FormLogin() {
   const [showPassword, setShowPassword] = useState(false); // Estado para controlar a visibilidade da senha
-  const [email, setEmail] = useState(""); 
-  const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const navigate = useNavigate(); 
-  const auth = useAuth();
-  const navigate = useNavigate()
+  const { authenticate } = useAuth();
 
   const { register, handleSubmit, formState } = useForm<LoginSchema>({
 		resolver: zodResolver(loginSchema),
@@ -39,43 +41,16 @@ export function FormLogin() {
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword); // Alterna entre mostrar e ocultar a senha
   };
-  
-  interface ResponseLogin {
-    accessToken: string;
-    payload: { email: string; username: string }
-  }
 
-  const validateForm = () => {
-    console.log('email', email)
-    if (!email || !password) {
-      setError("Por favor, preencha todos os campos.");
-      return false;
-    }
+  async function handleLogin({ email, password }: LoginSchema) {
     setError("");
-    return true;
-  };
-
-  const handleLogin = async (event:any) => {
-    event.preventDefault();
-
     try {
-      if (!validateForm()) {
-        return;
-      } 
-           
-      await auth.authenticate(email, password);
-      
-      navigate("/home");
-
+      await authenticate(email, password);
+      navigate('/home');
     } catch (error) {
       setError('Houve um erro ao fazer login. Verifique suas credenciais e tente novamente.');
       console.error('There was an error logging in!', error);
     }
-  };
-
-  function login({ email, password }: LoginSchema) {
-    console.log({ email, password });
-    navigate('/home')
   }
 
   return (
@@ -87,7 +62,7 @@ export function FormLogin() {
         <span>Faça login para continuar</span>
       </div>
 
-      <Form onSubmit={handleLogin(login)}>
+      <Form onSubmit={handleSubmit(handleLogin)}>
         <ContainerInputLabel>
           <label htmlFor="email">E-mail</label>
           <input 
@@ -119,6 +94,8 @@ export function FormLogin() {
             <span className="error">{formState.errors.password.message}</span>
           )}
         </ContainerInputLabel>
+
+        {error && <span className="error">{error}</span>}
         
         <button type="submit">ENTRAR</button>
 
