@@ -10,7 +10,7 @@ import {
   IconViewPassword,
   Form
 } from "./styles";
-import { useAuth } from "../../context/AuthProvider/useAuth";
+import { useAuth } from "../../contexts/AuthProvider/useAuth";
 
 const loginSchema = z.object({
 	email: z

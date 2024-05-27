@@ -26,4 +26,10 @@ export const GlobalStyle = createGlobalStyle`
   input[type=password]::-ms-reveal, input[type=password]::-ms-clear {
     display: none;
   }
+
+  span.error {
+    align-self: flex-start;
+    font-size: 14px;
+    color: #ef4444;
+  }
 `;

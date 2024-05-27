@@ -1,4 +1,4 @@
-import { Navigate, Route, Routes } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import { Login } from "./pages/Login";
 import { GlobalStyle } from "./styles/global";
 import { Home } from "./pages/Home";
@@ -9,7 +9,7 @@ import { Users } from "./pages/Users";
 import { EditUser } from "./pages/EditUser";
 import { Profile } from "./pages/Profile";
 import { EditPermissionLevel } from "./pages/EditPermissionLevel";
-import { AuthProvider } from "./context/AuthProvider";
+import { AuthProvider } from "./contexts/AuthProvider";
 import { ProtectedLayout } from "./components/ProtectedLayout";
 
 export function App() {
