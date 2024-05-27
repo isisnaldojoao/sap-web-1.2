@@ -3,12 +3,14 @@ import { useNavigate } from "react-router-dom";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
+
 import {
   Container,
   ContainerInputLabel,
   IconViewPassword,
   Form
 } from "./styles";
+import { useAuth } from "../../context/AuthProvider/useAuth";
 
 const loginSchema = z.object({
 	email: z
@@ -23,6 +25,11 @@ type LoginSchema = z.infer<typeof loginSchema>;
 
 export function FormLogin() {
   const [showPassword, setShowPassword] = useState(false); // Estado para controlar a visibilidade da senha
+  const [email, setEmail] = useState(""); 
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const navigate = useNavigate(); 
+  const auth = useAuth();
   const navigate = useNavigate()
 
   const { register, handleSubmit, formState } = useForm<LoginSchema>({
@@ -31,6 +38,39 @@ export function FormLogin() {
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword); // Alterna entre mostrar e ocultar a senha
+  };
+  
+  interface ResponseLogin {
+    accessToken: string;
+    payload: { email: string; username: string }
+  }
+
+  const validateForm = () => {
+    console.log('email', email)
+    if (!email || !password) {
+      setError("Por favor, preencha todos os campos.");
+      return false;
+    }
+    setError("");
+    return true;
+  };
+
+  const handleLogin = async (event:any) => {
+    event.preventDefault();
+
+    try {
+      if (!validateForm()) {
+        return;
+      } 
+           
+      await auth.authenticate(email, password);
+      
+      navigate("/home");
+
+    } catch (error) {
+      setError('Houve um erro ao fazer login. Verifique suas credenciais e tente novamente.');
+      console.error('There was an error logging in!', error);
+    }
   };
 
   function login({ email, password }: LoginSchema) {
@@ -47,7 +87,7 @@ export function FormLogin() {
         <span>Faça login para continuar</span>
       </div>
 
-      <Form onSubmit={handleSubmit(login)}>
+      <Form onSubmit={handleLogin(login)}>
         <ContainerInputLabel>
           <label htmlFor="email">E-mail</label>
           <input 

@@ -31,11 +31,6 @@ export const ManagerPermissionsLevels = () => {
   return (
     <Container>
       <Title>Gerenciar níveis de acesso</Title>
-      <TablePermissions
-        permissions={permissions}
-        onActivatePermission={handleActivatePermission}
-        onDeactivatePermission={handleDeactivatePermission}
-      />
     </Container>
   );
 };

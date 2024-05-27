@@ -1,5 +1,6 @@
 import { MdMenu } from "react-icons/md";
 import { CardUser } from "../CardUser";
+import { useNavigate } from "react-router-dom";
 import {
   Container,
   ContainerCardUser,
@@ -21,6 +22,7 @@ import {
   ContainerCloseNavbar,
   ContainerTop,
 } from "./styles";
+import { useAuth } from "../../context/AuthProvider/useAuth";
 
 interface SidebarProps {
   isOpen: boolean;
@@ -28,6 +30,7 @@ interface SidebarProps {
 }
 
 export function Sidebar({ isOpen, onToggle }: SidebarProps) {
+  const auth = useAuth();
   return (
     <>
       {isOpen && (
@@ -75,7 +78,7 @@ export function Sidebar({ isOpen, onToggle }: SidebarProps) {
             </DivMenu>
           </ContainerTop>
 
-          <ButtonExit>
+          <ButtonExit onClick={() => { auth.logout() }}>
             <IconButtonExit
               src="/src/assets/icons/exit.svg"
               alt="icone de sair"
