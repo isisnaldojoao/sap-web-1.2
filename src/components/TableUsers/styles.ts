@@ -3,11 +3,12 @@ import styled from "styled-components";
 export const Container = styled.div`
   border-radius: 10px;
   border: 1px solid #86A69340;
-  overflow: hidden;
+  overflow: auto;
 `;
 
 export const Table = styled.table`
   width: 100%;
+  min-width: 968px;
   border-collapse: collapse;
   
   tr {
