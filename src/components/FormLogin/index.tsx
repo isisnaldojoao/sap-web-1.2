@@ -31,6 +31,10 @@ type LoginSchema = z.infer<typeof loginSchema>;
 export function FormLogin() {
   const [showPassword, setShowPassword] = useState(false); // Estado para controlar a visibilidade da senha
   const [error, setError] = useState("");
+
+  const [loginAttempts, setLoginAttempts] = useState(0);
+  const [isBlocked, setIsBlocked] = useState(false);
+
   const navigate = useNavigate(); 
   const { authenticate } = useAuth();
 
@@ -43,12 +47,26 @@ export function FormLogin() {
   };
 
   async function handleLogin({ email, password }: LoginSchema) {
+
+    if (isBlocked) {
+      setError("Bloqueio por tentativas excessivas de acesso incorreto.");
+      return;
+    }
+
     setError("");
     try {
       await authenticate(email, password);
       navigate('/home');
     } catch (error) {
-      setError('Houve um erro ao fazer login. Verifique suas credenciais e tente novamente.');
+      const attempts = loginAttempts + 1;
+      setLoginAttempts(attempts);
+      if (attempts >= 3) {
+        setIsBlocked(true);
+        setError("Bloqueio por tentativas excessivas de acesso incorreto.");
+      } else {
+        setError('Houve um erro ao fazer login. Verifique suas credenciais e tente novamente.');
+      }
+      //setError('Houve um erro ao fazer login. Verifique suas credenciais e tente novamente.');
       console.error('There was an error logging in!', error);
     }
   }
@@ -69,7 +87,8 @@ export function FormLogin() {
             {...register('email')}
             type="email" 
             id="email"
-            placeholder="E-mail" 
+            placeholder="E-mail"
+            disabled={isBlocked} 
           />
           {formState.errors?.email && (
             <span className="error">{formState.errors.email.message}</span>
@@ -84,6 +103,7 @@ export function FormLogin() {
               type={showPassword ? "text" : "password"} // Altera o tipo do input para "text" se showPassword for true
               id="password"
               placeholder="Senha"
+              disabled={isBlocked}
             />
             <IconViewPassword
               src="/src/assets/icons/view.svg"
