@@ -56,6 +56,7 @@ export function FormLogin() {
     setError("");
     try {
       await authenticate(email, password);
+      console.log('authenticated', authenticate(email, password));
       navigate('/home');
     } catch (error) {
       const attempts = loginAttempts + 1;

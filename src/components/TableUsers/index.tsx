@@ -4,11 +4,6 @@ import { Actions, ButtonIcon, Container, Icon, StatusActive, StatusInactive, Tab
 import { User } from "../../pages/Users";
 import { Alert } from "../Alert";
 
-const accessLevel = {
-  admin: 'Administrador',
-  operator: 'Operador',
-  supervisor: 'Supervisor'
-}
 
 interface TableUsersProps {
   users: User[];
@@ -53,7 +48,7 @@ export function TableUsers({
 
       // fazer request
 
-      onActivateUser(selectedUser!.id);
+      onActivateUser(selectedUser!.codigo);
       setIsLoading(false);
       setIsActivateUserModalOpen(false);
     } catch (error) {
@@ -67,13 +62,15 @@ export function TableUsers({
 
       // fazer request
 
-      onDeactivateUser(selectedUser!.id);
+      onDeactivateUser(selectedUser!.codigo);
       setIsLoading(false);
       setIsDeactivateUserModalOpen(false);
     } catch (error) {
       console.error(error);
     }
   }
+
+  console.log(users)
 
   return (
     <>
@@ -111,24 +108,30 @@ export function TableUsers({
           </thead>
           <tbody>
             {users.map((user) => (
-              <tr key={user.id}>
-                <td>{user.id}</td>
-                <td>{user.name}</td>
-                <td>{user.user}</td>
+              <tr key={user.codigo}>
+                <td>{user.codigo}</td>
+                <td>{user.nome}</td>
+                <td>{user.nomeDeUsuario}</td>
                 <td>{user.email ?? '-'}</td>
-                <td>{accessLevel[user.accessLevel]}</td>
-                <td>{user.status === 'active' ? <StatusActive>Ativo</StatusActive> : <StatusInactive>Desativado</StatusInactive>}</td>
-                <td>{user.lastLogin.toLocaleString()}</td>
+                <td>{user.niveisDeAcesso.nome}</td>
+                <td>{user.status === 'ativo' ? <StatusActive>Ativo</StatusActive> : <StatusInactive>Desativado</StatusInactive>}</td>
+                <td>{new Date(user.ultimoLogin).toLocaleDateString('pt-BR', {
+                  day: '2-digit',
+                  month: '2-digit',
+                  year: 'numeric',
+                  hour: '2-digit',
+                  minute: '2-digit'
+                })}</td>
                 <td>
                   <Actions>
-                    <ButtonIcon type="button" onClick={() => navigate(`/users/${user.id}/edit`)}>
+                    <ButtonIcon type="button" onClick={() => navigate(`/users/${user.codigo}/edit`)}>
                       <Icon
                         src="/src/assets/icons/edit-icon.svg"
                         alt="ícone de editar usuário"
                       />
                     </ButtonIcon>
                     
-                      {user.status === 'active' ? (
+                      {user.status === 'ativo' ? (
                         <ButtonIcon type="button" onClick={() => handleOpenDeactivateUserModal(user)}>
                           <Icon
                             src="/src/assets/icons/inactive-icon.svg"
