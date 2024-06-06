@@ -23,10 +23,11 @@ export const AuthProvider = ({children}: IAuthProvider) => {
         // Verificando se a resposta contém o token
         if (response && response.token) {
             const payload = { token: response.token  };
+            console.log('payload', payload)
             setUser({ username, password });
             setUserLocalStorage(payload);
         }else{
-            logout()    
+            logout()  
         }
 
     }
