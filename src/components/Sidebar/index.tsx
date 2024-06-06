@@ -1,4 +1,6 @@
+import { useNavigate } from "react-router-dom";
 import { MdMenu } from "react-icons/md";
+
 import { CardUser } from "../CardUser";
 import {
   Container,
@@ -21,7 +23,7 @@ import {
   ContainerCloseNavbar,
   ContainerTop,
 } from "./styles";
-import { useAuth } from "../../contexts/AuthProvider/useAuth";
+import { useAuth } from "../../contexts/auth";
 
 interface SidebarProps {
   isOpen: boolean;
@@ -30,6 +32,13 @@ interface SidebarProps {
 
 export function Sidebar({ isOpen, onToggle }: SidebarProps) {
   const { logout } = useAuth();
+  const navigate = useNavigate();
+
+  function handleLogout() {
+    logout();
+    navigate('/login');
+  }
+  
   return (
     <>
       {isOpen && (
@@ -77,7 +86,7 @@ export function Sidebar({ isOpen, onToggle }: SidebarProps) {
             </DivMenu>
           </ContainerTop>
 
-          <ButtonExit onClick={logout}>
+          <ButtonExit onClick={handleLogout}>
             <IconButtonExit
               src="/src/assets/icons/exit.svg"
               alt="icone de sair"

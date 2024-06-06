@@ -6,10 +6,6 @@ export const Container = styled.div`
   max-width: 516px;
   border-radius: 20px;
   padding: 39px 40px;
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
   display: flex;
   flex-direction: column;
   align-items: center;

@@ -10,7 +10,7 @@ import {
   IconViewPassword,
   Form
 } from "./styles";
-import { useAuth } from "../../contexts/AuthProvider/useAuth";
+import { useAuth } from "../../contexts/auth";
 
 const loginSchema = z.object({
 	email: z
@@ -36,7 +36,8 @@ export function FormLogin() {
   const [isBlocked, setIsBlocked] = useState(false);
 
   const navigate = useNavigate(); 
-  const { authenticate } = useAuth();
+
+  const { login } = useAuth();
 
   const { register, handleSubmit, formState } = useForm<LoginSchema>({
 		resolver: zodResolver(loginSchema),
@@ -55,8 +56,8 @@ export function FormLogin() {
 
     setError("");
     try {
-      await authenticate(email, password);
-      console.log('authenticated', authenticate(email, password));
+      await login({ email, password });
+      console.log('authenticated');
       navigate('/home');
     } catch (error) {
       const attempts = loginAttempts + 1;

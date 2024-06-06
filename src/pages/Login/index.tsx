@@ -1,10 +1,7 @@
 import { FormLogin } from "../../components/FormLogin";
-import { LoginContainer } from "./styles";
 
-export const Login = () => {
+export function Login() {
   return (
-    <LoginContainer>
-      <FormLogin />
-    </LoginContainer>
+    <FormLogin />
   );
 };

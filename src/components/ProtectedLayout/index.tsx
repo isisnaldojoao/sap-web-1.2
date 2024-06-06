@@ -1,15 +1,14 @@
-import { useAuth } from "../../contexts/AuthProvider/useAuth";
+import { ReactNode } from "react";
+import { useAuth } from "../../contexts/auth";
 
-export const ProtectedLayout = ({ children }: {children: JSX.Element}) => {
-
-    const auth = useAuth();
-
-    if (!auth.username) {
-        return <>
-            <h1>Você não tem acesso a esta página</h1>
-        </>
-    }
-    
-    return children
-    
-}
+export function ProtectedLayout ({ children }: { children: ReactNode }) {
+  const { logged } = useAuth();
+  
+  if (!logged) {
+    return (
+      <h1>Você não tem acesso a esta página</h1>
+    );
+  }
+  
+  return children;
+};
