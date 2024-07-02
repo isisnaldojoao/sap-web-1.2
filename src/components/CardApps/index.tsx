@@ -11,11 +11,17 @@ export interface CardAppProps {
   icon: string;
   textMain: string;
   textSecondary: string;
+  downloadUrl: string;
 }
 
-export function CardApps({ icon, textMain, textSecondary }: CardAppProps) {
+export function CardApps({ icon, textMain, textSecondary, downloadUrl }: CardAppProps) {
+
+  const handleDownload = () => {
+    window.location.href = downloadUrl;
+  };
+
   return (
-    <Container>
+    <Container onClick={handleDownload} style={{ cursor: 'pointer' }}>
       <ContainerElements>
         <IconApp src={icon} />
         <ContainerTexts>

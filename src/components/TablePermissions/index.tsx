@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { Actions, ButtonIcon, Container, Icon, StatusActive, StatusInactive, Table } from "./styles";
 import { Permission } from "../../pages/ManagePermissionsLevels";
 import { Alert } from "../Alert";
+import { api } from "../../lib/axios";
 
 interface TablePermissionsProps {
   permissions: Permission[];
@@ -46,8 +47,17 @@ export function TablePermissions({
       setIsLoading(true);
 
       // fazer request
+      try {
+        const response = await api.patch(`/niveis-de-acesso/status-active/${selectedPermission!.codigo}`, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('@aco-verde-br:token')}`,
+          }
+        });
+      } catch (error) {
+        console.log(error);
+      }
 
-      onActivatePermission(selectedPermission!.code);
+      onActivatePermission(selectedPermission!.codigo);
       setIsLoading(false);
       setIsActivatePermissionModalOpen(false);
     } catch (error) {
@@ -60,8 +70,17 @@ export function TablePermissions({
       setIsLoading(true);
 
       // fazer request
+      try {
+        const response = await api.patch(`/niveis-de-acesso/status-inactive/${selectedPermission!.codigo}`, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('@aco-verde-br:token')}`,
+          }
+        });
+      } catch (error) {
+        console.log(error);
+      }
 
-      onDeactivatePermission(selectedPermission!.code);
+      onDeactivatePermission(selectedPermission!.codigo);
       setIsLoading(false);
       setIsDeactivatePermissionModalOpen(false);
     } catch (error) {
@@ -102,21 +121,21 @@ export function TablePermissions({
           </thead>
           <tbody>
             {permissions.map((permission) => (
-              <tr key={permission.code}>
-                <td>{permission.code}</td>
-                <td>{permission.name}</td>
-                <td>{permission.accessLevel}</td>
-                <td>{permission.status === 'active' ? <StatusActive>Ativo</StatusActive> : <StatusInactive>Desativado</StatusInactive>}</td>
+              <tr key={permission.codigo}>
+                <td>{permission.codigo}</td>
+                <td>{permission.nome}</td>
+                <td>{permission.nivel}</td>
+                <td>{permission.status === 'ativo' ? <StatusActive>Ativo</StatusActive> : <StatusInactive>Desativado</StatusInactive>}</td>
                 <td>
                   <Actions>
-                    <ButtonIcon type="button" onClick={() => navigate(`/manager-permissions-levels/${permission.code}/edit`)}>
+                    <ButtonIcon type="button" onClick={() => navigate(`/app/manager-permissions-levels/${permission.codigo}/edit`)}>
                       <Icon
                         src="/src/assets/icons/edit-icon.svg"
                         alt="ícone de editar nível de permissão"
                       />
                     </ButtonIcon>
                     
-                      {permission.status === 'active' ? (
+                      {permission.status === 'ativo' ? (
                         <ButtonIcon type="button" onClick={() => handleOpenDeactivatePermissionModal(permission)}>
                           <Icon
                             src="/src/assets/icons/inactive-icon.svg"

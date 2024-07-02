@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { MdMenu } from "react-icons/md";
-
+import { Usuario } from './usuario';
 import { CardUser } from "../CardUser";
 import {
   Container,
@@ -24,6 +24,7 @@ import {
   ContainerTop,
 } from "./styles";
 import { useAuth } from "../../contexts/auth";
+import { useEffect } from "react";
 
 interface SidebarProps {
   isOpen: boolean;
@@ -31,12 +32,19 @@ interface SidebarProps {
 }
 
 export function Sidebar({ isOpen, onToggle }: SidebarProps) {
-  const { logout } = useAuth();
+  const { logout, user } = useAuth();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!user) {
+      navigate('/auth/login');
+    }
+    console.log(user);
+  }, [user]);
 
   function handleLogout() {
     logout();
-    navigate('/login');
+    navigate('/auth/login');
   }
   
   return (
@@ -59,23 +67,27 @@ export function Sidebar({ isOpen, onToggle }: SidebarProps) {
 
             <DivMenu>
               <GroupButton>
-                <ButtonMenu to="/users">
-                  <IconsMenu
-                    src="/src/assets/icons/edit.svg"
-                    alt="icone de editar"
-                  />
-                  <TextButton>Editar usuários</TextButton>
-                </ButtonMenu>
+                {(user && (user as Usuario).nivel === 1 || user && (user as Usuario).nivel === 2) && (
+                  <>
+                    <ButtonMenu to="/app/users">
+                      <IconsMenu
+                        src="/src/assets/icons/edit.svg"
+                        alt="icone de editar"
+                      />
+                      <TextButton>Editar usuários</TextButton>
+                    </ButtonMenu>
 
-                <ButtonMenu to="/manager-permissions-levels">
-                  <IconsMenu
-                    src="/src/assets/icons/manage-access-levels.svg"
-                    alt="icone de gerenciar níveis de acesso"
-                  />
-                  <TextButton>Gerenciar níveis de acesso</TextButton>
-                </ButtonMenu>
+                    <ButtonMenu to="/app/manager-permissions-levels">
+                      <IconsMenu
+                        src="/src/assets/icons/manage-access-levels.svg"
+                        alt="icone de gerenciar níveis de acesso"
+                      />
+                      <TextButton>Gerenciar níveis de acesso</TextButton>
+                    </ButtonMenu>
+                  </>
+                )}
 
-                <ButtonMenu to="/download-apps">
+                <ButtonMenu to="/app/download-apps">
                   <IconsMenu
                     src="/src/assets/icons/dowload-app.svg"
                     alt="icone de baixar app"

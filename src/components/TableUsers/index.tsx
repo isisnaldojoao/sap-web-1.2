@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { Actions, ButtonIcon, Container, Icon, StatusActive, StatusInactive, Table } from "./styles";
 import { User } from "../../pages/Users";
 import { Alert } from "../Alert";
+import { api } from "../../lib/axios";
 
 
 interface TableUsersProps {
@@ -47,6 +48,15 @@ export function TableUsers({
       setIsLoading(true);
 
       // fazer request
+      try {
+        const response = await api.patch(`/usuarios/status-active/${selectedUser!.codigo}`, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('@aco-verde-br:token')}`,
+          }
+        });
+      } catch (error) {
+        console.log(error);
+      }
 
       onActivateUser(selectedUser!.codigo);
       setIsLoading(false);
@@ -59,8 +69,17 @@ export function TableUsers({
   async function handleDeactivateUser() {
     try {
       setIsLoading(true);
-
+      //console.log('selectedUser!.codigo', selectedUser!.codigo)
       // fazer request
+      try {
+        const response = await api.patch(`/usuarios/status-inactive/${selectedUser!.codigo}`, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('@aco-verde-br:token')}`,
+          }
+        });
+      } catch (error) {
+        console.log(error);
+      }
 
       onDeactivateUser(selectedUser!.codigo);
       setIsLoading(false);
@@ -69,8 +88,6 @@ export function TableUsers({
       console.error(error);
     }
   }
-
-  console.log(users)
 
   return (
     <>
@@ -124,7 +141,7 @@ export function TableUsers({
                 })}</td>
                 <td>
                   <Actions>
-                    <ButtonIcon type="button" onClick={() => navigate(`/users/${user.codigo}/edit`)}>
+                    <ButtonIcon type="button" onClick={() => navigate(`/app/users/${user.codigo}/edit`)}>
                       <Icon
                         src="/src/assets/icons/edit-icon.svg"
                         alt="ícone de editar usuário"

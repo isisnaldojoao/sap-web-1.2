@@ -13,7 +13,7 @@ import {
 import { useAuth } from "../../contexts/auth";
 
 const loginSchema = z.object({
-	email: z
+	username: z
 		.string()
 		.email({ message: 'E-mail inválido.' }),
   password: z
@@ -47,7 +47,7 @@ export function FormLogin() {
     setShowPassword(!showPassword); // Alterna entre mostrar e ocultar a senha
   };
 
-  async function handleLogin({ email, password }: LoginSchema) {
+  async function handleLogin({ username, password }: LoginSchema) {
 
     if (isBlocked) {
       setError("Bloqueio por tentativas excessivas de acesso incorreto.");
@@ -56,9 +56,9 @@ export function FormLogin() {
 
     setError("");
     try {
-      await login({ email, password });
+      await login({ username, password });
       console.log('authenticated');
-      navigate('/home');
+      navigate('/app/home');
     } catch (error) {
       const attempts = loginAttempts + 1;
       setLoginAttempts(attempts);
@@ -86,14 +86,14 @@ export function FormLogin() {
         <ContainerInputLabel>
           <label htmlFor="email">E-mail</label>
           <input 
-            {...register('email')}
+            {...register('username')}
             type="email" 
             id="email"
             placeholder="E-mail"
             disabled={isBlocked} 
           />
-          {formState.errors?.email && (
-            <span className="error">{formState.errors.email.message}</span>
+          {formState.errors?.username && (
+            <span className="error">{formState.errors.username.message}</span>
           )}
         </ContainerInputLabel>
 

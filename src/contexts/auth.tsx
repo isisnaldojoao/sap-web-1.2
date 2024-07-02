@@ -1,11 +1,17 @@
 import { createContext, ReactNode, useContext, useState } from "react";
 
-import { clearLocalStorage, getTokenLocalStorage, getUserLocalStorage, setTokenLocalStorage, setUserLocalStorage } from "../utils/auth";
+import { clearLocalStorage, getTokenLocalStorage, getUserLocalStorage, setNivelLocalStorage, setTokenLocalStorage, setUserLocalStorage } from "../utils/auth";
 import { LoginRequest, login as authenticate } from "../api/login";
 import { api } from "../lib/axios";
 
+type Usuario = {
+  nome: string,
+  nomeDeUsuario: string,
+  nivel: number
+}
+
 interface AuthContextData {
-  user: string | null
+  user: string | Usuario | null
   logged: boolean
   login: (request: LoginRequest) => Promise<void>
   logout: () => void
@@ -14,7 +20,7 @@ interface AuthContextData {
 const AuthContext = createContext({} as AuthContextData);
 
 function AuthContextProvider({ children }: { children: ReactNode }) {
-  const [user, setUser] = useState<string | null>(() => {
+  const [user, setUser] = useState<string |Usuario | null>(() => {
     const storageUser = getUserLocalStorage();
     const storageToken = getTokenLocalStorage()
 
@@ -27,15 +33,20 @@ function AuthContextProvider({ children }: { children: ReactNode }) {
     return null;
   });
 
-  async function login({ email, password }: LoginRequest) {
-    const { accessToken, payload } = await authenticate({ email, password });
-
-    setUser(payload.username);
+  async function login({ username, password }: LoginRequest) {
+    const { accessToken, payload } = await authenticate({ username, password });
+    const usuario: Usuario = {
+      nome: payload.username,
+      nomeDeUsuario: payload.username,
+      nivel: payload.nivel
+    }
+    setUser(usuario);
 
     api.defaults.headers.common.Authorization = `Bearer ${accessToken}`;
 
-    setUserLocalStorage(payload.username);
+    setUserLocalStorage(usuario.nome);
     setTokenLocalStorage(accessToken);
+    setNivelLocalStorage(usuario.nivel);
   };
 
   function logout() {

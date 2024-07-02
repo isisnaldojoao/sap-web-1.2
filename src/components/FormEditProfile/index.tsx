@@ -1,7 +1,9 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
+import axios from "axios";
 import {
   Container,
   ContainerImage,
@@ -27,9 +29,27 @@ export function FormEditProfile() {
   const [isAlertSuccessEditPasswordOpen, setIsAlertSuccessEditPasswordOpen] = useState(false);
   const [isModalEditPasswordOpen, setIsModalEditPasswordOpen] = useState(false);
 
-  const { register, handleSubmit, formState: { errors } } = useForm<EditProfileSchema>({
+  const { userId } = useParams();
+  
+  const { register, handleSubmit, setValue, formState: { errors } } = useForm<EditProfileSchema>({
 		resolver: zodResolver(editProfileSchema),
 	})
+
+  useEffect(() => {
+    async function fetchUserData() {
+      try {
+        const response = await axios.get(`http://localhost:4000/api/users/${userId}`);
+        const userData = response.data;
+        
+        setValue('name', userData.name);
+        setValue('user', userData.user);
+      } catch (error) {
+        console.error("Failed to fetch user data:", error);
+      }
+    }
+
+    fetchUserData();
+  }, [userId, setValue])
 
   function handleEditPassword() {
     setIsModalEditPasswordOpen(false);

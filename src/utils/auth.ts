@@ -6,6 +6,10 @@ export function setTokenLocalStorage(token: string) {
   localStorage.setItem('@aco-verde-br:token', token);
 }
 
+export function setNivelLocalStorage(nivel: number) {
+  localStorage.setItem('@aco-verde-br:nivel', nivel.toString());
+}
+
 export function getUserLocalStorage() {
   const user = localStorage.getItem('@aco-verde-br:user');
 
@@ -14,6 +18,12 @@ export function getUserLocalStorage() {
 
 export function getTokenLocalStorage() {
   const token = localStorage.getItem('@aco-verde-br:token');
+
+  return token ?? null;
+}
+
+export function getNivelLocalStorage() {
+  const token = localStorage.getItem('@aco-verde-br:nivel');
 
   return token ?? null;
 }

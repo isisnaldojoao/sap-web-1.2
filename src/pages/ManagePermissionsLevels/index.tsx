@@ -1,36 +1,64 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Container, Title } from "./styles";
 import { TablePermissions } from "../../components/TablePermissions";
+import axios from "axios";
+import { api } from "../../lib/axios";
 
 export interface Permission {
-  code: string;
-  name: string;
-  accessLevel: number;
-  status: 'active' | 'inactive';
+  codigo: string;
+  nome: string;
+  nivel: number;
+  status: 'ativo' | 'inativo';
 }
 
-const data: Permission[] = [
-  { code: '1', name: 'Administrador', accessLevel: 1, status: 'active' },
-  { code: '2', name: 'Supervisor', accessLevel: 2, status: 'active' },
-  { code: '3', name: 'Operador', accessLevel: 3, status: 'inactive' },
-  { code: '4', name: 'Auditores', accessLevel: 4, status: 'active' },
-  { code: '5', name: 'Clientes', accessLevel: 5, status: 'inactive' }
-];
 
 export const ManagerPermissionsLevels = () => {
-  const [permissions, setPermissions] = useState<Permission[]>(data);
+  const [permissions, setPermissions] = useState<Permission[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
+  
+  useEffect(() => {
+    const fetchPermissions = async () => {  
+      try {
+       // const response = await axios.get<Permission[]>('http://:3000/niveis-de-acesso');
+        const response = await api.get<Permission[]>('/niveis-de-acesso', {
+          headers:{
+            Authorization: `Bearer ${localStorage.getItem('@aco-verde-br:token')}`,
+          }
+
+        })
+        const permissionsData = response.data.map((permission) => ({
+          ...permission,
+        }));
+        setPermissions(permissionsData);
+      } catch (error) {
+        console.error("Error fetching permissions:", error);
+      } finally {
+        setLoading(false);
+      };
+    };
+    fetchPermissions();
+}, []);
   
   function handleActivatePermission(permissionCode: string) {
-    setPermissions((prevState) => prevState.map((permission) => permission.code === permissionCode ? { ...permission, status: 'active' } : permission));
+    setPermissions((prevState) => prevState.map((permission) => permission.codigo === permissionCode ? { ...permission, status: 'ativo' } : permission));
   }
   
   function handleDeactivatePermission(permissionCode: string) {
-    setPermissions((prevState) => prevState.map((permission) => permission.code === permissionCode ? { ...permission, status: 'inactive' } : permission));
+    setPermissions((prevState) => prevState.map((permission) => permission.codigo === permissionCode ? { ...permission, status: 'inativo' } : permission));
   }
   
+  if (loading) {
+    return <div>Carregando...</div>;
+  }
+
   return (
     <Container>
       <Title>Gerenciar níveis de acesso</Title>
+      <TablePermissions 
+        permissions={permissions}
+        onActivatePermission={handleActivatePermission}
+        onDeactivatePermission={handleDeactivatePermission}
+      />
     </Container>
   );
 };

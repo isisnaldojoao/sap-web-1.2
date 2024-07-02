@@ -1,4 +1,4 @@
-import { createBrowserRouter } from "react-router-dom";
+import { Navigate, createBrowserRouter } from "react-router-dom";
 
 import { AuthLayout } from "./layouts/auth";
 import { AppLayout } from "./layouts/app";
@@ -10,62 +10,68 @@ import { ManagerPermissionsLevels } from "./pages/ManagePermissionsLevels";
 import { EditPermissionLevel } from "./pages/EditPermissionLevel";
 import { DownloadApps } from "./pages/DownloadApps";
 import { Profile } from "./pages/Profile";
+import { ProtectedLayout } from "./components/ProtectedLayout";
 
 export const router = createBrowserRouter([
+  
+    {
+      path: '/',
+      element: <Navigate to="/auth/login" replace />,
+    },
   {
-    path: '/',
+    path: 'app',
     element: <AppLayout />,
     children: [
       {
         index: true,
-        element: <Home />
+        element: <ProtectedLayout><Home /></ProtectedLayout>,
       },
       {
         path: 'home',
-        element: <Home />
+        element: <ProtectedLayout><Home /></ProtectedLayout>,
       },
       {
-        path: 'users/',
+        path: 'users',
         children: [
           {
             index: true,
-            element: <Users />,
+            element: <ProtectedLayout><Users /></ProtectedLayout>,
           },
           {
-            path: ':userId',
-            element: <EditUser />
+            path: ':userId/edit',
+            element: <ProtectedLayout><EditUser /></ProtectedLayout>,
           },
         ]
       },
       {
-        path: 'manager-permissions-levels/',
+        path: 'manager-permissions-levels',
         children: [
           {
             index: true,
-            element: <ManagerPermissionsLevels />,
+            element: <ProtectedLayout><ManagerPermissionsLevels /></ProtectedLayout>,
           },
           {
-            path: ':permissionLevelId',
-            element: <EditPermissionLevel />,
+            path: ':permissionLevelId/edit',
+            element: <ProtectedLayout><EditPermissionLevel /></ProtectedLayout>,
           },
         ]
       },
       {
-        path: 'download-apps/',
-        element: <DownloadApps />,
+        path: 'download-apps',
+        element: <ProtectedLayout> <DownloadApps /> </ProtectedLayout>,
       },
       {
         path: 'profile',
-        element: <Profile />,
+        element: <ProtectedLayout> <Profile /> </ProtectedLayout>,
       },
     ]
   },
   {
-    path: '/',
+    path: 'auth',
     element: <AuthLayout />,
     children: [
       {
-        path: '/login',
+        path: 'login',
         element: <Login />
       }
     ]
