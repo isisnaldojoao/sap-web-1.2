@@ -12,6 +12,8 @@ import { DownloadApps } from "./pages/DownloadApps";
 import { Profile } from "./pages/Profile";
 import { ProtectedLayout } from "./components/ProtectedLayout";
 
+import {DashboardProduction} from "./pages/DashboardProduction";
+
 export const router = createBrowserRouter([
   
     {
@@ -59,6 +61,10 @@ export const router = createBrowserRouter([
       {
         path: 'download-apps',
         element: <ProtectedLayout> <DownloadApps /> </ProtectedLayout>,
+      },
+      {
+        path: 'dashboard-production',
+        element: <ProtectedLayout> <DashboardProduction /> </ProtectedLayout>,
       },
       {
         path: 'profile',

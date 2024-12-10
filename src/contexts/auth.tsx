@@ -66,3 +66,4 @@ function useAuth() {
 };
 
 export { AuthContextProvider, useAuth };
+export type { Usuario };

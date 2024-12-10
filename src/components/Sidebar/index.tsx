@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { MdMenu } from "react-icons/md";
-import { Usuario } from './usuario';
+import { Usuario } from '../../contexts/auth';
 import { CardUser } from "../CardUser";
 import {
   Container,
@@ -24,7 +24,8 @@ import {
   ContainerTop,
 } from "./styles";
 import { useAuth } from "../../contexts/auth";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { getNivelLocalStorage } from "../../utils/auth";
 
 interface SidebarProps {
   isOpen: boolean;
@@ -34,13 +35,17 @@ interface SidebarProps {
 export function Sidebar({ isOpen, onToggle }: SidebarProps) {
   const { logout, user } = useAuth();
   const navigate = useNavigate();
+  const [nivel, setNivel] = useState<number | null>(null);
 
   useEffect(() => {
     if (!user) {
       navigate('/auth/login');
     }
-    console.log(user);
-  }, [user]);
+    const storedNivel = getNivelLocalStorage();
+    console.log('storedNivel:', storedNivel);
+    setNivel(storedNivel);
+    console.log('user', user, 'nivel', storedNivel);
+  }, [user, navigate, nivel]);
 
   function handleLogout() {
     logout();
@@ -67,7 +72,7 @@ export function Sidebar({ isOpen, onToggle }: SidebarProps) {
 
             <DivMenu>
               <GroupButton>
-                {(user && (user as Usuario).nivel === 1 || user && (user as Usuario).nivel === 2) && (
+                {(user && nivel === 1 || nivel === 2) && (
                   <>
                     <ButtonMenu to="/app/users">
                       <IconsMenu
@@ -94,6 +99,24 @@ export function Sidebar({ isOpen, onToggle }: SidebarProps) {
                   />
                   <TextButton>Baixar Apps</TextButton>
                 </ButtonMenu>
+
+                <ButtonMenu to="/app/AberturaDeChamados">
+                  <IconsMenu
+                    src="/src/assets/icons/icon-coletor.svg"
+                    alt="icone de baixar app"
+                  />
+                  <TextButton>Abertura de Chamado</TextButton>
+                </ButtonMenu>
+
+                <ButtonMenu to="/app/dashboard-production">
+                  <IconsMenu
+                    src="/src/assets/dashboard.svg"
+                    alt="icone de baixar app"
+                  />
+                  <TextButton>DashBoard de Produção</TextButton>
+                </ButtonMenu>  
+
+
               </GroupButton>
             </DivMenu>
           </ContainerTop>

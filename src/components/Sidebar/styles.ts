@@ -12,6 +12,7 @@ export const Container = styled.aside`
   padding: 39px 23px 28px;
   color: white;
   background: #86a693;
+  box-shadow: 10px 10px 15px rgba(0, 0, 0, 0.2);
 `;
 
 export const ContainerTop = styled.div`

@@ -3,7 +3,7 @@ import { Container, ContainerCard, SubTitle, TitleMain } from "./styles";
 
 export const Home = () => {
 
-  const downloadUrl = "http://localhost:3000/download-app/apk";
+  const downloadUrl = import.meta.env.VITE_BASE_URL + "/download-app/apk";
 
   return (
     <Container>

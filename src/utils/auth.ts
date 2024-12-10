@@ -23,9 +23,9 @@ export function getTokenLocalStorage() {
 }
 
 export function getNivelLocalStorage() {
-  const token = localStorage.getItem('@aco-verde-br:nivel');
+  const nivel = localStorage.getItem('@aco-verde-br:nivel');
 
-  return token ?? null;
+  return nivel ? parseInt(nivel, 10) : null;
 }
 
 export function clearLocalStorage() {
